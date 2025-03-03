@@ -1,0 +1,378 @@
+.home-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hero section styles */
+.home-container .hero-section {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("https://images.unsplash.com/photo-1545389336-cf090694435e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80");
+  background-size: cover;
+  background-position: center;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  padding: 0 1rem;
+}
+
+.home-container .hero-content {
+  max-width: 800px;
+}
+
+.home-container .hero-content h1 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 3rem;
+  font-weight: 600;
+  color: white;
+}
+
+.home-container .hero-content p {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.home-container .hero-button {
+  background-color: #4a9d76;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.home-container .hero-button:hover {
+  background-color: #2a7854;
+}
+.home-container .yoga-reviews {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+/* Yoga section styles */
+.home-container .yoga-section {
+  padding: 1rem 1rem;
+  max-width: 1200px;
+}
+
+.home-container .section-title {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 3rem;
+  color: #333;
+  position: relative;
+}
+
+.home-container .section-title::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: #5a3e84;
+}
+
+.home-container .loading,
+.home-container .error,
+.home-container .no-data {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.home-container .error {
+  color: #e74c3c;
+}
+
+/* 3D Book Slider */
+.home-container .book-slider-container {
+  position: relative;
+  height: 300px;
+  perspective: 2000px;
+  background: transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 600px;
+}
+
+.home-container .book-slider-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  pointer-events: none;
+}
+
+.home-container .book-slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-style: preserve-3d;
+}
+
+.home-container .book-slide {
+  position: absolute;
+  width: 350px;
+  height: 260px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: all 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transform-origin: center;
+  transform-style: preserve-3d;
+}
+
+.home-container .book-slide::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+  border-radius: 5px 0 0 5px;
+  transform: translateX(-15px) rotateY(-30deg);
+  transform-origin: right;
+}
+
+.home-container .book-slide::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0px;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 0 5px 5px 0;
+}
+
+.home-container .book-slide.active {
+  z-index: 10;
+  transform: translateX(0) rotateY(0deg) !important;
+}
+
+.home-container .book-slide.left {
+  opacity: 0.7;
+  transform-origin: right center;
+}
+
+.home-container .book-slide.right {
+  opacity: 0.7;
+  transform-origin: left center;
+}
+
+.home-container .book-content {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.home-container .yoga-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.home-container .yoga-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-container .yoga-name {
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.home-container .learn-more {
+  background-color: #4a9d76;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.home-container .learn-more:hover {
+  background-color: #2b7653;
+}
+
+.home-container .page-turn-btn {
+  background-color: rgba(9, 1, 1, 0.068);
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  color: black;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.home-container .prev-btn {
+  left: 20px;
+}
+
+.home-container .next-btn {
+  right: 20px;
+}
+
+.home-container .page-turn-btn:hover {
+  background-color: whitesmoke;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.home-container .reviews .book-slider-container {
+  position: relative;
+  height: 300px;
+  perspective: 2000px;
+  background: transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 500px;
+}
+.home-container .reviews .book-slide {
+  width: 350px;
+  height: 200px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: transform 0.7s ease-in-out, opacity 0.5s ease-in-out;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+/* Footer styles */
+.home-container .footer {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem 0;
+  margin-top: 20px;
+}
+
+.home-container .footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .home-container .hero-content h1 {
+    font-size: 2.2rem;
+  }
+
+  .home-container .book-slider-container {
+    height: 350px;
+  }
+
+  .home-container .book-slide {
+    width: 350px;
+    height: 270px;
+  }
+
+  .home-container .yoga-image {
+    height: 150px;
+  }
+
+  .home-container .reviews .book-slider-container {
+    height: 250px;
+  }
+
+  .home-container .reviews .book-slide {
+    width: 350px;
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-container .navbar-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .home-container .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .home-container .hero-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .home-container .hero-content p {
+    font-size: 1rem;
+  }
+
+  .home-container .book-slider-container {
+    height: 320px;
+    width: 350px;
+  }
+
+  .home-container .book-slide {
+    width: 220px;
+    height: 280px;
+  }
+
+  .home-container .yoga-image {
+    height: 130px;
+  }
+
+  .home-container .yoga-name {
+    font-size: 1.2rem;
+  }
+
+  .home-container .yoga-description {
+    font-size: 0.5rem;
+  }
+
+  .home-container .reviews .book-slider-container {
+    height: 320px;
+    width: 350px;
+  }
+
+  .home-container .reviews .book-slide {
+    width: 220px;
+    height: 280px;
+  }
+}

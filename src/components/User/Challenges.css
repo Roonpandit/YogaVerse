@@ -1,0 +1,91 @@
+/* Challenges.css */
+.challenges-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .challenge-card {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  
+  .challenge-card .challenge-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .challenge-card .challenge-name {
+    font-size: 18px;
+    color: #007bff;
+  }
+  
+  .challenge-card .challenge-difficulty {
+    font-size: 14px;
+    background: #f8d7da;
+    color: #721c24;
+    padding: 3px 8px;
+    border-radius: 5px;
+  }
+  
+  .challenge-card .challenge-description {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .challenge-card .challenge-progress {
+    height: 8px;
+    background: #eee;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .challenge-card .progress-bar {
+    height: 100%;
+    background: #28a745;
+    transition: width 0.5s ease-in-out;
+  }
+  
+  .challenge-card .challenge-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .challenge-card .join-button {
+    display: block;
+    text-align: center;
+    background: #4a9d76;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: background 0.3s;
+  }
+  
+  .challenge-card .join-button:hover {
+    background: #389469;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .challenge-card {
+      width: 100%;
+    }
+  }
+  

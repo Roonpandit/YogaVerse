@@ -1,0 +1,125 @@
+/* Container for Login/Signup */
+.login-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login-container h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+/* Input Fields */
+.login-container input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.login-container input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Password Field Container */
+.login-container .password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.login-container .password-container input {
+  padding-right: 40px; /* Space for eye icon */
+}
+
+.login-container .show-password-btn {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+.login-container .show-password-btn:hover {
+  color: #007bff;
+}
+
+/* Buttons */
+.login-container button {
+  width: 100%;
+  padding: 8px;
+  background: #369569;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+
+.login-container button:hover {
+  background: #21734d;
+}
+
+/* Link Styles */
+.login-container p {
+  margin-top: 5px;
+  font-size: 0.9rem;
+}
+
+.login-container p a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.login-container p a:hover {
+  text-decoration: underline;
+}
+
+.google-login-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 800px;
+}
+
+.google-login-btn:hover {
+
+  text-decoration: underline;
+}
+
+.google-login-btn span:hover {
+  background-color: #f1f1f1;
+}
+
+.google-logo {
+  width: 20px;
+  height: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 450px) {
+  .login-container {
+    width: 90%;
+    padding: 1.5rem;
+  }
+}

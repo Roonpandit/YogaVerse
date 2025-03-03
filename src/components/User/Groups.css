@@ -1,0 +1,129 @@
+.asana-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.asana-item .asana-difficulty {
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+  min-width: 30px;
+  text-align: center;
+}
+
+.asana-item .difficulty-1 {
+  background-color: green;
+}
+
+.asana-item .difficulty-2 {
+  background-color: blue;
+}
+
+.asana-item .difficulty-3 {
+  background-color: orange;
+}
+
+.asana-item .difficulty-4 {
+  background-color: red;
+}
+
+.asana-item .difficulty-5 {
+  background-color: darkred;
+}
+
+.asana-item .asana-name {
+  flex-grow: 1;
+  text-align: center;
+  font-weight: bold;
+  color: #444;
+}
+
+.asana-item .asana-user {
+  font-size: 0.9rem;
+  color: #777;
+}
+.groups-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;
+}
+.group-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  margin: 10px;
+}
+
+.group-card .group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.group-card .group-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.group-card .group-members {
+  font-size: 14px;
+  color: #777;
+}
+
+.group-card .group-activity {
+  margin-bottom: 16px;
+}
+
+.group-card .view-more,
+.group-card .join-button {
+  display: inline-block;
+  padding: 8px 16px;
+  text-align: center;
+  font-size: 14px;
+  text-decoration: none;
+  border-radius: 4px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.group-card .view-more {
+  background-color: #4a9d76;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.group-card .view-more:hover {
+  background-color: #35805d;
+}
+
+.group-card .join-button {
+  background-color: #4a9d76;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.group-card .join-button:hover {
+  background-color:#348760;
+}
+
+
+
+
+
+

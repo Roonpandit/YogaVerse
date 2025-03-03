@@ -1,0 +1,102 @@
+.nav-admin {
+    background-color: #ffffff;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .nav-admin .navbars-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 24px;
+  }
+  
+  .nav-admin .navbars-logo {
+    color: #4a9d76;
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .nav-admin .nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    
+  }
+
+  .nav-admin .nav-links {
+    display: flex;
+    list-style: none;
+  }
+  
+  .nav-admin .nav-links li {
+    margin-left: 1.5rem;
+  }
+  
+  .nav-admin .nav-links a {
+    color:black;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  .nav-admin .nav-links a:hover, 
+  .nav-admin .nav-links a.active {
+    color: var(--accent);
+  }
+  
+  .nav-admin .nav-button-signup {
+    background-color: #c92936;
+    color: white;
+    text-decoration: none;
+    padding: 2px 16px;
+    border-radius: 4px;
+    font-weight: 800;
+    transition: all 0.3s ease;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .nav-admin .nav-button-signup:hover {
+    background-color: #be1a27;
+  }
+
+  .nav-admin .profile-logo{
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s ease-in-out;
+  }
+  .nav-admin .profile-logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+  }
+  .nav-admin .profile-image {
+    width: 30px; /* Adjust size as needed */
+    height: 30px;
+    border-radius: 50%; /* Makes the image circular */
+    cursor: pointer;
+    object-fit: cover; /* Ensures the image scales well */
+  }
+  .nav-admin .username{
+    font-family: 'Times New Roman', Times, serif;
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 5px;
+    margin-right: 20px;
+    transition: color 0.3s ease; 
+  }
