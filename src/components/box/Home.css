@@ -263,6 +263,26 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
 }
 
+.home-container .pagination-indicator {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.home-container .page-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.home-container .page-dot.active {
+  background-color: #4a9d76;
+}
+
 .home-container .reviews .book-slider-container {
   position: relative;
   height: 300px;

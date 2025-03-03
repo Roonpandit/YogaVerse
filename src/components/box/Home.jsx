@@ -20,22 +20,30 @@ function Home() {
         const response = await axios.get(
           "https://projects-b8a50-default-rtdb.asia-southeast1.firebasedatabase.app/Yoga/aasan.json"
         );
-  
+
         if (response.data) {
           // Convert API response into an array
-          const asanasArray = Object.entries(response.data).map(([key, value]) => ({
-            id: key, // Use key as ID
-            ...value,
-          }));
-  
+          const asanasArray = Object.entries(response.data).map(
+            ([key, value]) => ({
+              id: key, // Use key as ID
+              ...value,
+            })
+          );
+
           // Define names of asanas to display
-          const selectedNames = ["Dhanurasana", "Setu Bandha Sarvangasana", "Ustrasana", "Balasana","Eka Pada Rajakapotasana" ];
-  
+          const selectedNames = [
+            "Dhanurasana",
+            "Setu Bandha Sarvangasana",
+            "Ustrasana",
+            "Balasana",
+            "Eka Pada Rajakapotasana",
+          ];
+
           // Filter asanas by name
           const filteredAsanas = asanasArray.filter((asana) =>
             selectedNames.includes(asana.sanskrit_name_adapted)
           );
-  
+
           // Set the filtered asanas in state
           setYogaAsanas(filteredAsanas);
         }
@@ -46,10 +54,9 @@ function Home() {
         setLoading(false);
       }
     };
-  
+
     fetchYogaAsanas();
   }, []);
-  
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -191,6 +198,18 @@ function Home() {
               </button>
             </div>
           )}
+
+          <div className="pagination-indicator">
+            {yogaAsanas.map((_, index) => (
+              <span
+                key={index}
+                className={`page-dot ${
+                  currentAsanaPage === index ? "active" : ""
+                }`}
+                onClick={() => setCurrentAsanaPage(index)}
+              ></span>
+            ))}
+          </div>
         </div>
 
         {/* Reviews Section */}
@@ -231,7 +250,7 @@ function Home() {
                         opacity:
                           Math.abs(position) > 2
                             ? 0
-                            : .6 + (1 - Math.abs(position) * 1.1),
+                            : 0.6 + (1 - Math.abs(position) * 1.1),
                       }}
                     >
                       <div className="book-content">
@@ -264,6 +283,17 @@ function Home() {
               </button>
             </div>
           )}
+          <div className="pagination-indicator">
+            {reviews.map((_, index) => (
+              <span
+                key={index}
+                className={`page-dot ${
+                  currentReviewPage === index ? "active" : ""
+                }`}
+                onClick={() => setCurrentReviewPage(index)}
+              ></span>
+            ))}
+          </div>
         </div>
       </div>
 
