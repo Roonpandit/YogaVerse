@@ -44,8 +44,8 @@ function NavUser() {
 
         <ul className="nav-links">
           <li><Link to="/users">Home</Link></li>
-          <li><Link to="/my-groups">My Groups</Link></li>
-          <li><Link to="/explore-asanas">Explore Asanas</Link></li>
+          <li><Link to="/my-groups">Groups</Link></li>
+          <li><Link to="/explore-asanas">Explore Aasan</Link></li>
           <li><Link to="/challenges">Challenges</Link></li>
         </ul>
 

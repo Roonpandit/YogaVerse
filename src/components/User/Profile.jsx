@@ -9,6 +9,7 @@ import {
   getDocs,
   deleteDoc,
 } from "firebase/firestore";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { onAuthStateChanged } from "firebase/auth";
 import NavUser from "./Nav-User";
 import "./Profile.css";
@@ -22,15 +23,14 @@ const Profile = () => {
     weight: "",
     gender: "",
   });
-
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [editMode, setEditMode] = useState(false);
   const [favoritePoses, setFavoritePoses] = useState([]);
   const [filteredFavorites, setFilteredFavorites] = useState([]);
+  const [currentPosePage, setCurrentPosePage] = useState(0);
   const [selectedPose, setSelectedPose] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const posesPerPage = 8;
 
   const fetchFavorites = async (userId) => {
     try {
@@ -39,11 +39,27 @@ const Profile = () => {
       const poses = querySnapshot.docs.map((doc) => doc.data());
       setFavoritePoses(poses);
       setFilteredFavorites(poses); // Initialize filtered favorites with all favorites
-    } catch (error) {
-      console.error("Error fetching favorites:", error);
+    } catch (err) {
+      console.error("Error fetching favorites:", err);
+      setError("Failed to load favorites");
     }
+    
   };
+  const calculatePosition = (index) => {
+    const totalItems = filteredFavorites.length ;
+    const currentPage = currentPosePage ;
+    if (totalItems === 0) return 0;
+    let position = index - currentPage;
 
+    if (position > totalItems / 2) position -= totalItems;
+    else if (position < -totalItems / 2) position += totalItems;
+
+    return position;
+  };
+  
+  const getPoseId = (pose) => {
+    return pose.id || pose.sanskrit_name_adapted || "unknown-id";
+  };
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -154,25 +170,37 @@ const Profile = () => {
   // Update filtered favorites when search query changes
   useEffect(() => {
     filterFavorites();
-    setCurrentPage(1);
   }, [searchQuery, favoritePoses]);
 
-  const totalPages = Math.ceil(filteredFavorites.length / posesPerPage) || 1;
 
-  useEffect(() => {
-    if (currentPage > totalPages) {
-      setCurrentPage(totalPages);
-    }
-  }, [filteredFavorites, totalPages, currentPage]);
-
-  const indexOfLastPose = currentPage * posesPerPage;
-  const indexOfFirstPose = indexOfLastPose - posesPerPage;
-  const paginatedFavorites = filteredFavorites.slice(indexOfFirstPose, indexOfLastPose);
 
   if (loading) {
     return <p>Loading profile...</p>;
   }
 
+
+  const goToNextPose = () => {
+    setCurrentPosePage((prev) => {
+      // Loop to the first page when on the last page
+      if (prev === filteredFavorites.length - 1) {
+        return 0;
+      }
+      return prev + 1;
+    });
+  };
+  
+  const goToPrevPose = () => {
+    setCurrentPosePage((prev) => {
+      // Loop to the last page when on the first page
+      if (prev === 0) {
+        return filteredFavorites.length - 1;
+      }
+      return prev - 1;
+    });
+  };
+  
+  
+  
   return (
     <>
       <NavUser />
@@ -285,61 +313,109 @@ const Profile = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-          <div className="poses-container">
-            {paginatedFavorites.length > 0 ? (
-              paginatedFavorites.map((pose, index) => (
-                <div key={index} className="pose-card">
-                  <img
-                    src={pose.url_png}
-                    alt={pose.english_name}
-                    className="pose-image"
-                  />
-                  <h3>{pose.sanskrit_name_adapted}</h3>
-                  <div className="pose-actions">
-                    <button
-                      onClick={() => setSelectedPose(pose)}
-                      className="see-more"
-                    >
-                      See More
-                    </button>
-                    <button
-                      className="heart-btn favorited"
-                      onClick={() => toggleFavorite(pose)}
-                      data-tooltip="Remove from favorites"
-                    >
-                      ❤️
-                    </button>
+
+          {loading && <div className="loading">Loading yoga aasan...</div>}
+          {error && <div className="error">{error}</div>}
+
+          {!loading && !error && (
+            <>
+              {filteredFavorites.length > 0 ? (
+                <div className="book-slider-container">
+                  <button
+                    className="page-turn-btn prev-btn"
+                    onClick={goToPrevPose}
+                  >
+                    <ChevronLeft size={24} />
+                  </button>
+
+                  <div className="book-slider">
+                    {filteredFavorites.map((pose, index) => {
+                      const position = calculatePosition(index);
+                      return (
+                        <div
+                          key={getPoseId(pose)}
+                          className={`book-slide ${
+                            position === 0
+                              ? "active"
+                              : position < 0
+                              ? "left"
+                              : "right"
+                          }`}
+                          style={{
+                            transform: `translateX(${
+                              position * 120
+                            }%) rotateY(${position * 40}deg)`,
+                            zIndex: position === 0 ? 10 : 10 - Math.abs(position),
+
+                            opacity:
+                              Math.abs(position) > 2
+                                ? 0
+                                : 0.6 +(1 - Math.abs(position) * 1.1),
+                          }}
+                        >
+                          <div className="book-content">
+                            <img
+                              src={pose.url_png || "/placeholder-pose.png"}
+                              alt={pose.english_name || "Yoga pose"}
+                              className="yoga-image"
+                              onError={(e) => {
+                                e.target.src = "/placeholder-pose.png";
+                                e.target.onerror = null;
+                              }}
+                            />
+                            <h3 className="yoga-name">
+                              {pose.sanskrit_name_adapted || "Unknown Pose"}
+                            </h3>
+                            <div className="pose-actions">
+                              <button
+                                onClick={() => setSelectedPose(pose)}
+                                className="see-more"
+                              >
+                                See More
+                              </button>
+                              <button
+                                className="heart-btn favorited"
+                                onClick={() => toggleFavorite(pose)}
+                                data-tooltip="Remove from favorites"
+                              >
+                                ❤️
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
+
+                  <button
+                    className="page-turn-btn next-btn"
+                    onClick={goToNextPose}
+                  >
+                    <ChevronRight size={24} />
+                  </button>
                 </div>
-              ))
-            ) : (
-              <p>No favorite yoga poses yet.</p>
-            )}
+              ) : (
+                <p>
+                  No favorite yoga poses found. Try adding some poses to your
+                  favorites!
+                </p>
+              )}
+            </>
+          )}
+
+<div className="pagination-indicator">
+            {filteredFavorites.map((_, index) => (
+              <span
+                key={index}
+                className={`page-dot ${
+                  currentPosePage === index ? "active" : ""
+                }`}
+                onClick={() => setCurrentPosePage(index)}
+              ></span>
+            ))}
           </div>
         </div>
-        {/* Pagination Controls */}
-        {totalPages > 1 && (
-          <div className="pagination">
-            <button
-              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-              disabled={currentPage === 1}
-            >
-              Previous
-            </button>
-            <span>
-              {" "}
-              Page {currentPage} of {totalPages}{" "}
-            </span>
-            <button
-              onClick={() =>
-                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-              }
-              disabled={currentPage === totalPages}
-            >
-              Next
-            </button>
-          </div>
-        )}
+
         {/* Modal for displaying pose details */}
         {selectedPose && (
           <div className="modal-overlay" onClick={() => setSelectedPose(null)}>
