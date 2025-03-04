@@ -65,15 +65,16 @@ const Login = () => {
         await setDoc(userRef, {
           name: user.displayName || "",
           email: user.email || "",
+          photoURL: user.photoURL || "",
           isProfileComplete: false,
           role: "user", // Default role
         });
   
-        navigate("/complete-profile", { state: { name: user.displayName, email: user.email } });
+        navigate("/complete-profile", { state: { name: user.displayName, email: user.email, photoURL: user.photoURL } });
       } else {
         const userData = userSnap.data();
         if (!userData.isProfileComplete) {
-          navigate("/complete-profile", { state: { name: userData.name, email: userData.email } });
+          navigate("/complete-profile", { state: { name: userData.name, email: userData.email, photoURL: userData.photoURL } });
         } else {
           userData.role === "admin" ? navigate("/admin") : navigate("/users");
         }

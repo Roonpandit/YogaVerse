@@ -4,20 +4,27 @@ import { auth, db } from "../Login/firebase/firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore"; 
 import "./Nav-User.css";
-import userLogo from "../../assets/user-logo.jpg";
+import userLogo from "../../assets/user-logo.jpg"; // Default logo
 
 function NavUser() {
   const [userName, setUserName] = useState("Guest");
+  const [userData, setUserData] = useState({
+    photoURL: userLogo, // Default profile picture
+  });
 
   useEffect(() => {
-    const fetchUserName = async (uid) => {
+    const fetchUserData = async (uid) => {
       try {
-        const userDocRef = doc(db, "users", uid); // 🔹 Get user doc by UID
+        const userDocRef = doc(db, "users", uid); 
         const userDocSnap = await getDoc(userDocRef);
 
         if (userDocSnap.exists()) {
           const userData = userDocSnap.data();
-          setUserName(userData.name); // ✅ Get the correct username
+          setUserName(userData.name || "Guest"); 
+          setUserData((prev) => ({
+            ...prev,
+            photoURL: userData.photoURL || userLogo, // Set profile picture
+          }));
         } else {
           console.warn("User document not found!");
         }
@@ -28,9 +35,10 @@ function NavUser() {
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        fetchUserName(user.uid); // 🔹 Use UID instead of email
+        fetchUserData(user.uid);
       } else {
         setUserName("Guest");
+        setUserData({ photoURL: userLogo }); // Reset to default when logged out
       }
     });
 
@@ -40,7 +48,7 @@ function NavUser() {
   return (
     <nav className="nav-user">
       <div className="navbars-container">
-        <Link  className="navbars-logo">YogaVerse</Link>
+        <Link className="navbars-logo">YogaVerse</Link>
 
         <ul className="nav-links">
           <li><Link to="/users">Home</Link></li>
@@ -51,7 +59,7 @@ function NavUser() {
 
         <div className="profile-logo">
           <Link to="/Profile">
-            <img src={userLogo} alt="Profile" className="profile-image" />
+            <img src={userData.photoURL} alt="Profile" className="profile-image" />
             <span className="username">{userName}</span>
           </Link>
           <div className="nav-buttons">

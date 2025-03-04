@@ -9,6 +9,7 @@ import {
   getDocs,
   deleteDoc,
 } from "firebase/firestore";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { onAuthStateChanged } from "firebase/auth";
 import NavUser from "./Nav-User";
@@ -43,11 +44,10 @@ const Profile = () => {
       console.error("Error fetching favorites:", err);
       setError("Failed to load favorites");
     }
-    
   };
   const calculatePosition = (index) => {
-    const totalItems = filteredFavorites.length ;
-    const currentPage = currentPosePage ;
+    const totalItems = filteredFavorites.length;
+    const currentPage = currentPosePage;
     if (totalItems === 0) return 0;
     let position = index - currentPage;
 
@@ -56,7 +56,7 @@ const Profile = () => {
 
     return position;
   };
-  
+
   const getPoseId = (pose) => {
     return pose.id || pose.sanskrit_name_adapted || "unknown-id";
   };
@@ -73,6 +73,7 @@ const Profile = () => {
           const newUserData = {
             name: user.displayName || "",
             email: user.email || "",
+            photoURL: user.photoURL || "",
             dob: "",
             height: "",
             weight: "",
@@ -129,18 +130,22 @@ const Profile = () => {
     }
 
     const poseId = String(pose.id || pose.sanskrit_name_adapted);
-    const favoritesRef = doc(db, `users/${auth.currentUser.uid}/favorites`, poseId);
-    
+    const favoritesRef = doc(
+      db,
+      `users/${auth.currentUser.uid}/favorites`,
+      poseId
+    );
+
     try {
       // Always remove from favorites in this context since we're viewing favorites
       await deleteDoc(favoritesRef);
-      
+
       // Update local state
       const updatedFavorites = favoritePoses.filter(
-        p => String(p.id || p.sanskrit_name_adapted) !== poseId
+        (p) => String(p.id || p.sanskrit_name_adapted) !== poseId
       );
       setFavoritePoses(updatedFavorites);
-      
+
       // Apply current filter to updated favorites
       filterFavorites(updatedFavorites);
     } catch (error) {
@@ -154,7 +159,7 @@ const Profile = () => {
       setFilteredFavorites(poses);
       return;
     }
-    
+
     const filtered = poses.filter(
       (pose) =>
         (pose.sanskrit_name_adapted &&
@@ -172,12 +177,9 @@ const Profile = () => {
     filterFavorites();
   }, [searchQuery, favoritePoses]);
 
-
-
   if (loading) {
     return <p>Loading profile...</p>;
   }
-
 
   const goToNextPose = () => {
     setCurrentPosePage((prev) => {
@@ -188,7 +190,7 @@ const Profile = () => {
       return prev + 1;
     });
   };
-  
+
   const goToPrevPose = () => {
     setCurrentPosePage((prev) => {
       // Loop to the last page when on the first page
@@ -198,29 +200,111 @@ const Profile = () => {
       return prev - 1;
     });
   };
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
   
+    if (!file) {
+      alert("Please select an image!");
+      return;
+    }
   
+    if (file.size > 1024 * 1024) { // 1MB = 1024 * 1024 bytes
+      alert("Image cannot be greater than 1MB.");
+      return;
+    }
+  
+    try {
+      const resizedBase64 = await resizeImage(file, 500, 500); // Resize to 500x500px
+  
+      if (!userData.uid) {
+        throw new Error("User ID is missing!");
+      }
+  
+      const userRef = doc(db, "users", userData.uid);
+      await updateDoc(userRef, { photoURL: resizedBase64 });
+  
+      setUserData((prev) => ({ ...prev, photoURL: resizedBase64 }));
+  
+      alert("Image uploaded successfully!");
+    } catch (error) {
+      console.error("Firestore update error:", error);
+      alert("Failed to update Firestore: " + error.message);
+    }
+  };
+  
+  // Function to resize image
+  const resizeImage = (file, maxWidth, maxHeight) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          let width = img.width;
+          let height = img.height;
+  
+          if (width > maxWidth || height > maxHeight) {
+            if (width > height) {
+              height *= maxWidth / width;
+              width = maxWidth;
+            } else {
+              width *= maxHeight / height;
+              height = maxHeight;
+            }
+          }
+  
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+  
+          resolve(canvas.toDataURL("image/jpeg", 0.7)); // Convert to Base64 (JPEG with 70% quality)
+        };
+        img.src = event.target.result;
+      };
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
+  };
   
   return (
     <>
       <NavUser />
       <div className="profile-container">
-        <h2 className="profile-title">My Profile</h2>
         <div className="profile-details">
           <div className="profile-row">
-            <strong>Name:</strong>
-            {editMode ? (
+            <div className="profile-picture">
+              <img
+                src={userData.photoURL || "default-profile.png"}
+                alt="Profile"
+                className="profile-img"
+              />
+              <label htmlFor="imageUpload" className="upload-icon">
+                📷
+              </label>
+              <input
+                type="file"
+                id="imageUpload"
+                accept="image/*"
+                onChange={handleImageUpload}
+              />
+            </div>
+
+            <div className="users-name">
+              <strong>{userData.name}</strong>
+            </div>
+          </div>
+          {editMode && (
+            <div className="profile-row">
+              <strong>Name</strong>
               <input
                 type="text"
                 name="name"
                 value={userData.name}
                 onChange={handleInputChange}
               />
-            ) : (
-              <span>{userData.name || "Not provided"}</span>
-            )}
-          </div>
-
+            </div>
+          )}
           <div className="profile-row">
             <strong>Email:</strong>
             <span>{userData.email || "Not provided"}</span>
@@ -345,12 +429,13 @@ const Profile = () => {
                             transform: `translateX(${
                               position * 120
                             }%) rotateY(${position * 40}deg)`,
-                            zIndex: position === 0 ? 10 : 10 - Math.abs(position),
+                            zIndex:
+                              position === 0 ? 10 : 10 - Math.abs(position),
 
                             opacity:
                               Math.abs(position) > 2
                                 ? 0
-                                : 0.6 +(1 - Math.abs(position) * 1.1),
+                                : 0.6 + (1 - Math.abs(position) * 1.1),
                           }}
                         >
                           <div className="book-content">
@@ -403,7 +488,7 @@ const Profile = () => {
             </>
           )}
 
-<div className="pagination-indicator">
+          <div className="pagination-indicator">
             {filteredFavorites.map((_, index) => (
               <span
                 key={index}
