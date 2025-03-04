@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 import "./User.css";
 import NavUser from "./Nav-User";
+import ChatWidget from "./ChatWidget";
 
 function User() {
   const [user, setUser] = useState(null);
@@ -122,6 +123,7 @@ function User() {
   return (
     <div className="user-page">
       <NavUser />
+      <ChatWidget />
       <section className="hero">
         <h1>Transform Your Yoga Journey Together</h1>
         <p>

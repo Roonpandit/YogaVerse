@@ -1,26 +1,24 @@
-import { useState } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
-import './App.css'
+import { useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import "./App.css";
 // MAIN DASHBOARD
-import Home from './components/box/Home'
-import Login from './components/Login/Login'
-import Signup from "./components/Login/Signup"
-import Contact from './components/box/Contact'
+import Home from "./components/box/Home";
+import Login from "./components/Login/Login";
+import Signup from "./components/Login/Signup";
+import Contact from "./components/box/Contact";
 
 // ADMIN
-import Admin from "./components/Admin/Admin"
-import Aasan from "./components/Admin/Aasan"
+import Admin from "./components/Admin/Admin";
+import Aasan from "./components/Admin/Aasan";
+import AdminChat from "./components/Admin/AdminChat";
 
-
-// USER 
-import CompleteProfile from './components/User/CompleteProfile'
-import User from './components/User/User'
-import MyGroupsPage from './components/User/MyGroupsPage'
-import ExploreAsanasPage from './components/User/ExploreAsanasPage'
-import ChallengesPage from './components/User/ChallengesPage'
-import Profile from './components/User/Profile'
-
-
+// USER
+import CompleteProfile from "./components/User/CompleteProfile";
+import User from "./components/User/User";
+import MyGroupsPage from "./components/User/MyGroupsPage";
+import ExploreAsanasPage from "./components/User/ExploreAsanasPage";
+import ChallengesPage from "./components/User/ChallengesPage";
+import Profile from "./components/User/Profile";
 
 function App() {
   return (
@@ -30,12 +28,13 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path='/contact' element={<Contact/>}/>
+        <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<Navigate to="/" replace />} />
 
         {/* ADMIN  */}
         <Route path="/admin" element={<Admin />} />
         <Route path="/add-aasan" element={<Aasan />} />
+        <Route path="/chat" element={<AdminChat />} />
 
         {/* USER  */}
         <Route path="/Complete-Profile" element={<CompleteProfile />} />
@@ -44,14 +43,9 @@ function App() {
         <Route path="/my-groups" element={<MyGroupsPage />} />
         <Route path="/explore-asanas" element={<ExploreAsanasPage />} />
         <Route path="/challenges" element={<ChallengesPage />} />
-
-        
-
-
-        
       </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

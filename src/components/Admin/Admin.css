@@ -1,5 +1,6 @@
-/* Admin Panel Styles */
-.Admin .admin-container {
+/* Admin-Dashboard Panel Styles */
+
+.Admin-Dashboard .admin-container {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
@@ -8,7 +9,7 @@
     border-radius: 8px;
   }
   
-  .Admin .admin-title {
+  .Admin-Dashboard .admin-title {
     text-align: center;
     font-size: 24px;
     font-weight: bold;
@@ -16,13 +17,12 @@
   }
   
   /* User List */
-  .Admin .user-list {
-    display: flex;
-    flex-direction: column;
+  .Admin-Dashboard .user-list {
+    width: auto;
     gap: 10px;
   }
   
-  .Admin  .user-item {
+  .Admin-Dashboard  .user-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -31,23 +31,23 @@
     border-radius: 5px;
   }
   
-  .Admin .user-name {
+  .Admin-Dashboard .user-name {
     font-weight: bold;
   }
   
-  .Admin .user-email {
+  .Admin-Dashboard .user-email {
     color: #555;
     font-size: 14px;
   }
-  .Admin .btn {
+  .Admin-Dashboard .btn {
     display: flex;
     gap: 10px;
     justify-content: center;
     align-items: center;
     margin-top: 10px;
   }
-  .Admin .action-btn,
-  .Admin .delete-btn {
+  .Admin-Dashboard .action-btn,
+  .Admin-Dashboard .delete-btn {
     padding: 5px 10px;
     border: none;
     border-radius: 5px;
@@ -55,26 +55,26 @@
     transition: 0.3s;
   }
   
-  .Admin .action-btn {
+  .Admin-Dashboard .action-btn {
     background: #333;
     color: white;
   }
   
-  .Admin .action-btn:hover {
+  .Admin-Dashboard .action-btn:hover {
     background: #000;
   }
   
-  .Admin .delete-btn {
+  .Admin-Dashboard .delete-btn {
     background: #dc3545;
     color: white;
   }
   
-  .Admin .delete-btn:hover {
+  .Admin-Dashboard .delete-btn:hover {
     background: #a71d2a;
   }
   
   /* Modal */
-  .Admin .modal-overlay {
+  .Admin-Dashboard .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -86,7 +86,7 @@
     justify-content: center;
   }
   
-  .Admin .modal-content {
+  .Admin-Dashboard .modal-content {
     background: white;
     padding: 20px;
     border-radius: 8px;
@@ -94,17 +94,17 @@
     width: 90%;
   }
   
-  .Admin .details-title {
+  .Admin-Dashboard .details-title {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
   }
   
-  .Admin .details-content p {
+  .Admin-Dashboard .details-content p {
     margin: 5px 0;
   }
   
-  .Admin .close-btn {
+  .Admin-Dashboard .close-btn {
     display: block;
     margin: 10px auto 0;
     padding: 8px 15px;
@@ -115,7 +115,7 @@
     cursor: pointer;
   }
   
-  .Admin .close-btn:hover {
+  .Admin-Dashboard .close-btn:hover {
     background: #000;
   }
   

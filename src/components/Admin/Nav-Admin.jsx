@@ -44,9 +44,8 @@ function NavAdmin() {
 
         <ul className="nav-links">
           <li><Link to="/admin">Home</Link></li>
-          <li><Link to="/add-group">Group</Link></li>
           <li><Link to="/add-aasan">Aasan</Link></li>
-          <li><Link to="/add-challenges">Challenges</Link></li>
+          <li><Link to="/chat">Chat</Link></li>
         </ul>
 
         <div className="profile-logo">

@@ -74,7 +74,7 @@ function Admin() {
   };
 
   return (
-    <div className="Admin">
+    <div className="Admin-Dashboard">
       <NavAdmin />
       <div className="admin-container">
         <h2 className="admin-title">All Users</h2>
