@@ -24,7 +24,7 @@ function Admin() {
           id: doc.id,
           ...doc.data(),
         }));
-        setUsers(usersList);
+        setUsers(usersList.filter((user) => user.role === "user"));
       } catch (error) {
         console.error("Error fetching users:", error);
       }
