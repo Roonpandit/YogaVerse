@@ -5,12 +5,13 @@ function Navbar() {
   return (
     <nav className="navbars">
       <div className="navbars-container">
-        <Link to="/" className="navbars-logo">
+        <Link className="navbars-logo">
           YogaVerse
         </Link>
         <div className="nav-buttons">
-          <Link to="/login" className="nav-btn">Login</Link>
+          <Link to="/login" className="nav-button-signup">Login</Link>
           <Link to="/signup" className="nav-button-signup">Sign Up</Link>
+          <Link to="/contact" className="nav-btn">Contact Us</Link>
         </div>
       </div>
     </nav>
