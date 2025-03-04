@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { auth, db } from "../Login/firebase/firebase-config"; 
+import { auth, db } from "../Login/firebase/firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore"; 
+import { doc, getDoc } from "firebase/firestore";
 import "./Nav-User.css";
 import userLogo from "../../assets/user-logo.jpg"; // Default logo
 
@@ -15,12 +15,12 @@ function NavUser() {
   useEffect(() => {
     const fetchUserData = async (uid) => {
       try {
-        const userDocRef = doc(db, "users", uid); 
+        const userDocRef = doc(db, "users", uid);
         const userDocSnap = await getDoc(userDocRef);
 
         if (userDocSnap.exists()) {
           const userData = userDocSnap.data();
-          setUserName(userData.name || "Guest"); 
+          setUserName(userData.name || "Guest");
           setUserData((prev) => ({
             ...prev,
             photoURL: userData.photoURL || userLogo, // Set profile picture
@@ -51,19 +51,33 @@ function NavUser() {
         <Link className="navbars-logo">YogaVerse</Link>
 
         <ul className="nav-links">
-          <li><Link to="/users">Home</Link></li>
-          <li><Link to="/my-groups">Groups</Link></li>
-          <li><Link to="/explore-asanas">Explore Aasan</Link></li>
-          <li><Link to="/challenges">Challenges</Link></li>
+          <li>
+            <Link to="/users">Home</Link>
+          </li>
+          <li>
+            <Link to="/my-groups">Groups</Link>
+          </li>
+          <li>
+            <Link to="/explore-asanas">Explore Aasan</Link>
+          </li>
+          <li>
+            <Link to="/challenges">Challenges</Link>
+          </li>
         </ul>
 
         <div className="profile-logo">
           <Link to="/Profile">
-            <img src={userData.photoURL} alt="Profile" className="profile-image" />
+            <img
+              src={userData.photoURL}
+              alt="Profile"
+              className="profile-image"
+            />
             <span className="username">{userName}</span>
           </Link>
           <div className="nav-buttons">
-            <Link to="/" className="nav-button-signup">Log Out</Link>
+            <Link to="/" className="nav-button-signup">
+              Log Out
+            </Link>
           </div>
         </div>
       </div>

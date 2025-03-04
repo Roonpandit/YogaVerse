@@ -138,10 +138,13 @@ const AdminChat = () => {
     if (!editedText.trim()) return;
 
     try {
-      await updateDoc(doc(db, "users", selectedUser.id, "messages", messageId), {
-        text: editedText,
-        edited: true,
-      });
+      await updateDoc(
+        doc(db, "users", selectedUser.id, "messages", messageId),
+        {
+          text: editedText,
+          edited: true,
+        }
+      );
 
       setEditingMessage(null);
       setEditedText("");
@@ -158,7 +161,9 @@ const AdminChat = () => {
 
       const batch = writeBatch(db);
       messagesSnapshot.forEach((messageDoc) => {
-        batch.delete(doc(db, "users", selectedUser.id, "messages", messageDoc.id));
+        batch.delete(
+          doc(db, "users", selectedUser.id, "messages", messageDoc.id)
+        );
       });
       await batch.commit();
 
@@ -190,7 +195,9 @@ const AdminChat = () => {
                 <button
                   key={user.id}
                   onClick={() => setSelectedUser(user)}
-                  className={`user-btn ${selectedUser?.id === user.id ? "selected" : ""}`}
+                  className={`user-btn ${
+                    selectedUser?.id === user.id ? "selected" : ""
+                  }`}
                 >
                   {user.name || `User-${user.id}`}{" "}
                   {unreadUsers.has(user.id) && <div className="red-dot"></div>}
@@ -200,12 +207,21 @@ const AdminChat = () => {
           </div>
 
           <div className="chat-box">
-            <h3>{selectedUser ? `Chat with ${selectedUser.name || "User"}` : "Select a user"}</h3>
+            <h3>
+              {selectedUser
+                ? `Chat with ${selectedUser.name || "User"}`
+                : "Select a user"}
+            </h3>
             {selectedUser ? (
               <>
                 <div className="messages">
                   {messages.map((msg) => (
-                    <div key={msg.id} className={`message ${msg.isAdminReply ? "admin" : "user"}`}>
+                    <div
+                      key={msg.id}
+                      className={`message ${
+                        msg.isAdminReply ? "admin" : "user"
+                      }`}
+                    >
                       {editingMessage?.id === msg.id ? (
                         <div>
                           <input
@@ -213,18 +229,28 @@ const AdminChat = () => {
                             value={editedText}
                             onChange={(e) => setEditedText(e.target.value)}
                           />
-                          <button onClick={() => saveEditedMessage(msg.id)}>Save</button>
-                          <button onClick={() => setEditingMessage(null)}>Cancel</button>
+                          <button onClick={() => saveEditedMessage(msg.id)}>
+                            Save
+                          </button>
+                          <button onClick={() => setEditingMessage(null)}>
+                            Cancel
+                          </button>
                         </div>
                       ) : (
                         <span>
-                          {msg.text} {msg.edited && <span className="edited-msg">(Edited)</span>}
+                          {msg.text}{" "}
+                          {msg.edited && (
+                            <span className="edited-msg">(Edited)</span>
+                          )}
                         </span>
                       )}
 
                       {!msg.deleted && msg.isAdminReply && (
                         <div className="admin-actions">
-                          <FaPencilAlt className="edit-icon" onClick={() => editMessage(msg)} />
+                          <FaPencilAlt
+                            className="edit-icon"
+                            onClick={() => editMessage(msg)}
+                          />
                         </div>
                       )}
                     </div>
@@ -241,14 +267,23 @@ const AdminChat = () => {
                     onFocus={() => setTyping(true)}
                     onBlur={() => setTyping(false)}
                   />
-                  <button className="send-btn" onClick={sendReply}>Send</button>
+                  <button className="send-btn" onClick={sendReply}>
+                    Send
+                  </button>
                 </div>
 
                 {typing && <p className="typing-indicator">Typing...</p>}
 
                 <div className="chat-controls">
-                  <button className="delete-all-chat" onClick={deleteAllMessages}>Delete All Chat</button>
-                  <button className="close-btn" onClick={closeChat}>Close Chat</button>
+                  <button
+                    className="delete-all-chat"
+                    onClick={deleteAllMessages}
+                  >
+                    Delete All Chat
+                  </button>
+                  <button className="close-btn" onClick={closeChat}>
+                    Close Chat
+                  </button>
                 </div>
               </>
             ) : (

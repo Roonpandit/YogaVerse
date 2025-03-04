@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { db } from "../Login/firebase/firebase-config"; // Ensure Firestore is correctly configured
+import { db, auth } from "../Login/firebase/firebase-config"; // Ensure Firestore is correctly configured
 import {
   collection,
   getDocs,
@@ -25,7 +25,6 @@ function Admin() {
           ...doc.data(),
         }));
         setUsers(usersList.filter((user) => user.role === "user"));
-        
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -81,9 +80,14 @@ function Admin() {
         <h2 className="admin-title">All Users</h2>
         <div className="user-list">
           {users.map((user) => (
-            <div key={user.id} className="user-item">
-              <span className="user-name">{user.name}</span>
-              <div className="btn">
+            <div key={user.id} className="user-card">
+              <img
+                src={user.photoURL}
+                alt="Profile"
+                className="profile-image"
+              />
+              <h3 className="user-name">{user.name}</h3>
+              <div className="user-actions">
                 <button
                   className="action-btn"
                   onClick={() => fetchUserDetails(user.id)}
@@ -102,27 +106,44 @@ function Admin() {
         </div>
 
         {selectedUser && (
-  <div className="modal-overlay" onClick={() => setSelectedUser(null)}>
-    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-      <h3 className="details-title">User Details</h3>
-      <div className="details-content">
-        <p><strong>Role:</strong> {selectedUser.role}</p>
-        <p><strong>Name:</strong> {selectedUser.name}</p>
-        <p><strong>DOB:</strong> {selectedUser.dob}</p>
-        <p><strong>Gender:</strong> {selectedUser.gender}</p>
-        <p><strong>Weight:</strong> {selectedUser.weight} kg</p>
-        <p><strong>Height:</strong> {selectedUser.height} cm</p>
-        <p><strong>Email:</strong> {selectedUser.email}</p>
-        <p><strong>UID:</strong> {selectedUser.id}</p>
-
-      </div>
-      <button className="close-btn" onClick={() => setSelectedUser(null)}>
-        Close
-      </button>
-    </div>
-  </div>
-)}
-
+          <div className="modal-overlay" onClick={() => setSelectedUser(null)}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <h3 className="details-title">User Details</h3>
+              <div className="details-content">
+                <p>
+                  <strong>Role:</strong> {selectedUser.role}
+                </p>
+                <p>
+                  <strong>Name:</strong> {selectedUser.name}
+                </p>
+                <p>
+                  <strong>DOB:</strong> {selectedUser.dob}
+                </p>
+                <p>
+                  <strong>Gender:</strong> {selectedUser.gender}
+                </p>
+                <p>
+                  <strong>Weight:</strong> {selectedUser.weight} kg
+                </p>
+                <p>
+                  <strong>Height:</strong> {selectedUser.height} cm
+                </p>
+                <p>
+                  <strong>Email:</strong> {selectedUser.email}
+                </p>
+                <p>
+                  <strong>UID:</strong> {selectedUser.id}
+                </p>
+              </div>
+              <button
+                className="close-btn"
+                onClick={() => setSelectedUser(null)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

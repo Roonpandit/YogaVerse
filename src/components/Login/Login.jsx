@@ -20,17 +20,21 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
-  
+
       if (!user.emailVerified) {
         alert("Please verify your email before logging in.");
         return;
       }
-  
+
       const userRef = doc(db, "users", user.uid);
       const userSnap = await getDoc(userRef);
-  
+
       if (userSnap.exists()) {
         const userData = userSnap.data();
         if (!userData.isProfileComplete) {
@@ -45,22 +49,21 @@ const Login = () => {
       alert(error.message);
     }
   };
-  
 
   // ✅ Google Login Function
   const handleGoogleLogin = async () => {
     try {
       const userCredential = await signInWithPopup(auth, googleProvider);
       const user = userCredential.user;
-  
+
       if (!user.emailVerified) {
         alert("Please verify your email before logging in.");
         return;
       }
-  
+
       const userRef = doc(db, "users", user.uid);
       const userSnap = await getDoc(userRef);
-  
+
       if (!userSnap.exists()) {
         await setDoc(userRef, {
           name: user.displayName || "",
@@ -69,12 +72,24 @@ const Login = () => {
           isProfileComplete: false,
           role: "user", // Default role
         });
-  
-        navigate("/complete-profile", { state: { name: user.displayName, email: user.email, photoURL: user.photoURL } });
+
+        navigate("/complete-profile", {
+          state: {
+            name: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+          },
+        });
       } else {
         const userData = userSnap.data();
         if (!userData.isProfileComplete) {
-          navigate("/complete-profile", { state: { name: userData.name, email: userData.email, photoURL: userData.photoURL } });
+          navigate("/complete-profile", {
+            state: {
+              name: userData.name,
+              email: userData.email,
+              photoURL: userData.photoURL,
+            },
+          });
         } else {
           userData.role === "admin" ? navigate("/admin") : navigate("/users");
         }
@@ -84,9 +99,6 @@ const Login = () => {
       alert(error.message);
     }
   };
-  
-  
-  
 
   // ✅ Forgot Password Function
   const handleForgotPassword = async () => {
@@ -139,7 +151,7 @@ const Login = () => {
         </p>
 
         <p>
-          Don't have an account? <a href="/signup">Sign up</a>
+          Don't have an account? <a href="/signup">Register Here!</a>
         </p>
       </div>
     </>

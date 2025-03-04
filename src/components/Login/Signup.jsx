@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 import { auth, db } from "./firebase/firebase-config";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
@@ -27,7 +30,11 @@ const Signup = () => {
     }
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
 
       await setDoc(doc(db, "users", user.uid), {
@@ -42,7 +49,9 @@ const Signup = () => {
       });
 
       await sendEmailVerification(user);
-      alert(`Signup successful! A verification email has been sent to ${email}.`);
+      alert(
+        `Signup successful! A verification email has been sent to ${email}.`
+      );
 
       navigate("/login");
     } catch (error) {
@@ -52,10 +61,18 @@ const Signup = () => {
 
   return (
     <div className="login-container">
-      <h2>Signup</h2>
+      <h3>Create New Account</h3>
 
-      <input type="text" placeholder="Full Name" onChange={(e) => setName(e.target.value)} />
-      <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+      <input
+        type="text"
+        placeholder="Full Name"
+        onChange={(e) => setName(e.target.value)}
+      />
+      <input
+        type="email"
+        placeholder="Email"
+        onChange={(e) => setEmail(e.target.value)}
+      />
 
       <select onChange={(e) => setRole(e.target.value)}>
         <option value="user">User</option>
@@ -68,7 +85,10 @@ const Signup = () => {
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <span className="show-password-btn" onClick={() => setShowPassword(!showPassword)}>
+        <span
+          className="show-password-btn"
+          onClick={() => setShowPassword(!showPassword)}
+        >
           {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
         </span>
       </div>
@@ -79,12 +99,15 @@ const Signup = () => {
           placeholder="Confirm Password"
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        <span className="show-password-btn" onClick={() => setShowPassword(!showPassword)}>
+        <span
+          className="show-password-btn"
+          onClick={() => setShowPassword(!showPassword)}
+        >
           {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
         </span>
       </div>
 
-      <button onClick={handleSignup}>Signup</button>
+      <button onClick={handleSignup}>Create Account</button>
       <p>
         Already have an account? <a href="/login">Login</a>
       </p>

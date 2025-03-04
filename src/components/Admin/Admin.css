@@ -1,129 +1,131 @@
 /* Admin-Dashboard Panel Styles */
 
 .Admin-Dashboard .admin-container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-  }
-  
-  .Admin-Dashboard .admin-title {
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  /* User List */
-  .Admin-Dashboard .user-list {
-    width: auto;
-    gap: 10px;
-  }
-  
-  .Admin-Dashboard  .user-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background: #f9f9f9;
-    border-radius: 5px;
-  }
-  
-  .Admin-Dashboard .user-name {
-    font-weight: bold;
-  }
-  
-  .Admin-Dashboard .user-email {
-    color: #555;
-    font-size: 14px;
-  }
-  .Admin-Dashboard .btn {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-  }
-  .Admin-Dashboard .action-btn,
-  .Admin-Dashboard .delete-btn {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  
-  .Admin-Dashboard .action-btn {
-    background: #333;
-    color: white;
-  }
-  
-  .Admin-Dashboard .action-btn:hover {
-    background: #000;
-  }
-  
-  .Admin-Dashboard .delete-btn {
-    background: #dc3545;
-    color: white;
-  }
-  
-  .Admin-Dashboard .delete-btn:hover {
-    background: #a71d2a;
-  }
-  
-  /* Modal */
-  .Admin-Dashboard .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .Admin-Dashboard .modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    
-    width: 30%;
-  }
-  
-  .Admin-Dashboard .details-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .Admin-Dashboard .details-content {
- display: flex;
- flex-direction: column;
- gap: 10px;
-  }
-  
-  .Admin-Dashboard .details-content p{
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid black;
-     }
-     
-  .Admin-Dashboard .close-btn {
-    display: block;
-    margin: 10px auto 0;
-    padding: 8px 15px;
-    border: none;
-    background: #333;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .Admin-Dashboard .close-btn:hover {
-    background: #000;
-  }
-  
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.Admin-Dashboard .admin-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.Admin-Dashboard .user-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
+.Admin-Dashboard .user-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.Admin-Dashboard .profile-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid white; /* Optional: Adds a white border around the image */
+}
+.Admin-Dashboard .user-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+.Admin-Dashboard .user-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.Admin-Dashboard .action-btn,
+.Admin-Dashboard .delete-btn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.Admin-Dashboard .action-btn {
+  background: #333;
+  color: white;
+}
+
+.Admin-Dashboard .action-btn:hover {
+  background: #000;
+}
+
+.Admin-Dashboard .delete-btn {
+  background: #dc3545;
+  color: white;
+}
+
+.Admin-Dashboard .delete-btn:hover {
+  background: #a71d2a;
+}
+
+/* Modal */
+.Admin-Dashboard .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Admin-Dashboard .modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.Admin-Dashboard .details-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.Admin-Dashboard .details-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.Admin-Dashboard .details-content p {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+
+.Admin-Dashboard .close-btn {
+  display: block;
+  margin: 10px auto 0;
+  padding: 8px 15px;
+  border: none;
+  background: #333;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.Admin-Dashboard .close-btn:hover {
+  background: #000;
+}

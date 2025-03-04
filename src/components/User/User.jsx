@@ -28,12 +28,12 @@ function User() {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);  // Log the raw data for debugging
-  
+        console.log(data); // Log the raw data for debugging
+
         // Check if the data has numeric or random object keys
         if (data && typeof data === "object") {
           // Extract only the values from the object (i.e., pose data)
-          const posesArray = Object.values(data); 
+          const posesArray = Object.values(data);
           setPoses(posesArray); // Update poses state
           setFilteredPoses(posesArray); // Set filtered poses initially
           setCurrentPage(1); // Reset page to 1
@@ -46,7 +46,6 @@ function User() {
         console.error("Error fetching data:", error);
       });
   }, []);
-  
 
   useEffect(() => {
     const filtered = poses.filter(
@@ -167,7 +166,9 @@ function User() {
                   <button
                     className={`heart-btn ${isFavorited ? "favorited" : ""}`}
                     onClick={() => toggleFavorite(pose)}
-                    data-tooltip={isFavorited ? "Remove from fav" : "Add to fav"}
+                    data-tooltip={
+                      isFavorited ? "Remove from fav" : "Add to fav"
+                    }
                   >
                     {isFavorited ? "❤️" : "🤍"}
                   </button>
@@ -176,7 +177,7 @@ function User() {
             );
           })
         ) : (
-          <p>No poses available</p>  // Fallback message if no poses are found
+          <p>No poses available</p> // Fallback message if no poses are found
         )}
       </div>
 

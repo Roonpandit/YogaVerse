@@ -1,4 +1,4 @@
-.profile-container{
+.profile-container {
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -6,7 +6,7 @@
   margin: auto;
   margin-top: 50px;
 }
- .profile-container .profile-details {
+.profile-container .profile-details {
   width: 100%;
   margin: auto;
   background: transparent;
@@ -15,7 +15,7 @@
   padding-bottom: 20px;
   margin-top: 180px;
 }
-.profile-picture {
+.profile-container .profile-picture {
   width: 150px;
   height: 150px;
   border-radius: 50%;
@@ -25,7 +25,7 @@
   left: 50%;
   transform: translateX(-50%);
 }
-.profile-img {
+.profile-container .profile-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -33,28 +33,28 @@
   border: 3px solid white; /* Optional: Adds a white border around the image */
 }
 
-.upload-icon {
+.profile-container .upload-icon {
   position: absolute;
   bottom: 5px;
   right: 5px;
   width: 30px; /* Make the icon larger */
-  height: 40px;
+  height: 27px;
+  background-color: black;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  border: none;
-  font-size: 28px; /* Increase icon size */
+  border-radius: 3px;
+  font-size: 18px; /* Increase icon size */
   z-index: 10; /* Ensure it's above the image */
 }
 
-#imageUpload {
+.profile-container #imageUpload {
   display: none;
 }
 
-
-.users-name {
+.profile-container .users-name {
   display: flex;
   justify-content: center; /* Centers content horizontally */
   align-items: center; /* Centers content vertically (if height is set) */
@@ -64,19 +64,17 @@
   top: 299px;
   left: 50%;
   transform: translateX(-50%); /* Centers div itself */
-
 }
 
-.users-name strong {
+.profile-container .users-name strong {
   font-size: 18px;
   font-weight: bold;
   color: #333;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
 }
 
-
-.edit-btn,
-.save-btn {
+.profile-container .edit-btn,
+.profile-container .save-btn {
   align-self: center;
   background: #4a9d76;
   color: white;
@@ -89,32 +87,24 @@
   margin-bottom: 20px;
 }
 
-.input-field {
+.profile-container .input-field {
   border: 1px solid #ccc;
   padding: 6px;
   width: 60%;
   border-radius: 4px;
 }
 
-.profile-details {
-  margin-top: 20px;
-}
 
-.profile-row {
+.profile-container .profile-row {
   display: flex;
   justify-content: space-between;
   padding: 10px 20px;
   border-bottom: 1px solid #eee;
 }
 
-strong {
+.profile-container strong {
   font-weight: 600;
 }
-
-
-
-
-
 
 .cards .hero {
   display: flex;
@@ -125,12 +115,11 @@ strong {
 }
 
 .cards .hero h2 {
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
   font-size: 2.5rem;
   margin-bottom: 1rem;
   color: var(--primary);
 }
-
 
 .cards .search-bar {
   display: flex;
@@ -142,21 +131,19 @@ strong {
   width: 100%;
   max-width: 400px;
   padding: 10px;
-  border: 2px solid #4CAF50;
+  border: 2px solid #4caf50;
   border-radius: 5px;
   font-size: 16px;
   outline: none;
 }
 
 .cards .search-bar input:focus {
-  border-color: #2E8B57;
+  border-color: #2e8b57;
   box-shadow: 0 0 5px rgba(46, 139, 87, 0.5);
 }
 
-
-
 .cards .pose-actions {
-  display: flex;  /* Align buttons side by side */
+  display: flex; /* Align buttons side by side */
   justify-content: space-around;
 }
 
@@ -189,10 +176,10 @@ strong {
   overflow-y: auto; /* Enables scrolling if needed */
 }
 
-.cards .modal-overlay p, 
-.cards h2{
+.cards .modal-overlay p,
+.cards h2 {
   margin-bottom: 20px;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
 }
 /* Modal Content */
 .cards .modal-content {
@@ -225,8 +212,7 @@ strong {
   cursor: pointer;
 }
 
-
-.heart-btn {
+.cards .heart-btn {
   position: relative;
   background: none;
   border: none;
@@ -235,7 +221,7 @@ strong {
   outline: none;
 }
 
-.heart-btn::after {
+.cards .heart-btn::after {
   content: attr(data-tooltip);
   position: absolute;
   bottom: 100%;
@@ -252,16 +238,14 @@ strong {
   white-space: nowrap;
 }
 
-.heart-btn:hover::after {
+.cards .heart-btn:hover::after {
   opacity: 1;
   visibility: visible;
 }
 
-
-.heart-btn.favorited {
+.cards .heart-btn.favorited {
   color: red; /* Make the heart red when favorited */
 }
-
 
 /* Animation for Modal */
 @keyframes fadeIn {
@@ -282,34 +266,6 @@ strong {
     max-width: 350px;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .cards .loading,
 .cards .error,
@@ -335,7 +291,6 @@ strong {
   width: 600px;
   margin-top: 20px;
 }
-
 
 .cards .book-slider-container::before {
   content: "";
@@ -444,7 +399,6 @@ strong {
   color: #333;
 }
 
-
 .cards .page-turn-btn {
   background-color: rgba(9, 1, 1, 0.068);
   border: none;
@@ -458,7 +412,7 @@ strong {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 100; 
+  z-index: 100;
   pointer-events: auto;
   color: black;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
@@ -498,8 +452,6 @@ strong {
   background-color: #4a9d76;
 }
 
-
-
 /* Responsive styles */
 @media (max-width: 768px) {
   .cards .hero-content h1 {
@@ -521,7 +473,6 @@ strong {
 }
 
 @media (max-width: 480px) {
-
   .cards .hero-content h1 {
     font-size: 1.8rem;
   }
@@ -547,6 +498,4 @@ strong {
   .cards .yoga-name {
     font-size: 1.2rem;
   }
-
-
 }

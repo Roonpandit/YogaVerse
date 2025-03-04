@@ -12,6 +12,8 @@ import {
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { onAuthStateChanged } from "firebase/auth";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
 import NavUser from "./Nav-User";
 import "./Profile.css";
 
@@ -202,36 +204,37 @@ const Profile = () => {
   };
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
-  
+
     if (!file) {
       alert("Please select an image!");
       return;
     }
-  
-    if (file.size > 1024 * 1024) { // 1MB = 1024 * 1024 bytes
+
+    if (file.size > 1024 * 1024) {
+      // 1MB = 1024 * 1024 bytes
       alert("Image cannot be greater than 1MB.");
       return;
     }
-  
+
     try {
       const resizedBase64 = await resizeImage(file, 500, 500); // Resize to 500x500px
-  
+
       if (!userData.uid) {
         throw new Error("User ID is missing!");
       }
-  
+
       const userRef = doc(db, "users", userData.uid);
       await updateDoc(userRef, { photoURL: resizedBase64 });
-  
+
       setUserData((prev) => ({ ...prev, photoURL: resizedBase64 }));
-  
+
       alert("Image uploaded successfully!");
     } catch (error) {
       console.error("Firestore update error:", error);
       alert("Failed to update Firestore: " + error.message);
     }
   };
-  
+
   // Function to resize image
   const resizeImage = (file, maxWidth, maxHeight) => {
     return new Promise((resolve, reject) => {
@@ -242,7 +245,7 @@ const Profile = () => {
           const canvas = document.createElement("canvas");
           let width = img.width;
           let height = img.height;
-  
+
           if (width > maxWidth || height > maxHeight) {
             if (width > height) {
               height *= maxWidth / width;
@@ -252,12 +255,12 @@ const Profile = () => {
               height = maxHeight;
             }
           }
-  
+
           canvas.width = width;
           canvas.height = height;
           const ctx = canvas.getContext("2d");
           ctx.drawImage(img, 0, 0, width, height);
-  
+
           resolve(canvas.toDataURL("image/jpeg", 1.0)); // Convert to Base64 (JPEG with 70% quality)
         };
         img.src = event.target.result;
@@ -266,7 +269,7 @@ const Profile = () => {
       reader.readAsDataURL(file);
     });
   };
-  
+
   return (
     <>
       <NavUser />
@@ -280,7 +283,7 @@ const Profile = () => {
                 className="profile-img"
               />
               <label htmlFor="imageUpload" className="upload-icon">
-                📷
+                <i className="fas fa-camera"></i>
               </label>
               <input
                 type="file"

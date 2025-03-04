@@ -76,19 +76,20 @@ function Aasan() {
       alert("All fields are required!");
       return;
     }
-  
+
     // Check if selectedPose exists (this would mean we are updating an existing pose)
     if (selectedPose) {
       console.log("Attempting to update pose:", selectedPose);
-  
+
       // Find the pose by the english_name in the local state to update it
       const existingPose = poses.find(
-        (pose) => pose.english_name.toLowerCase() === newPose.english_name.toLowerCase()
+        (pose) =>
+          pose.english_name.toLowerCase() === newPose.english_name.toLowerCase()
       );
-  
+
       if (existingPose) {
         console.log("Found existing pose to update:", existingPose);
-  
+
         // Update the existing pose using its ID in the database
         fetch(
           `https://projects-b8a50-default-rtdb.asia-southeast1.firebasedatabase.app/Yoga/aasan/${existingPose.id}.json`,
@@ -108,18 +109,20 @@ function Aasan() {
           })
           .then(() => {
             console.log("Pose successfully updated in database");
-  
+
             // Update the pose locally in the state
             setPoses((prevPoses) =>
               prevPoses.map((pose) =>
-                pose.english_name.toLowerCase() === newPose.english_name.toLowerCase()
+                pose.english_name.toLowerCase() ===
+                newPose.english_name.toLowerCase()
                   ? { ...pose, ...newPose } // Update pose data in state
                   : pose
               )
             );
             setFilteredPoses((prevPoses) =>
               prevPoses.map((pose) =>
-                pose.english_name.toLowerCase() === newPose.english_name.toLowerCase()
+                pose.english_name.toLowerCase() ===
+                newPose.english_name.toLowerCase()
                   ? { ...pose, ...newPose } // Update filtered poses as well
                   : pose
               )
@@ -130,7 +133,10 @@ function Aasan() {
             console.error("Error updating pose:", error);
           });
       } else {
-        console.log("Pose not found with the given English name:", newPose.english_name);
+        console.log(
+          "Pose not found with the given English name:",
+          newPose.english_name
+        );
         alert("Pose not found with the given English name.");
       }
     } else {
@@ -162,7 +168,7 @@ function Aasan() {
           console.error("Error adding new pose:", error);
         });
     }
-  
+
     // Reset form after saving
     setNewPose({
       english_name: "",
@@ -173,12 +179,10 @@ function Aasan() {
       pose_benefits: "",
       url_png: "",
     });
-  
+
     setShowAddModal(false); // Close modal
     setSelectedPose(null); // Reset selectedPose after saving
   };
-  
-  
 
   const handleEditPose = (pose) => {
     setSelectedPose(pose);
@@ -193,7 +197,6 @@ function Aasan() {
     });
     setShowAddModal(true); // Show the modal to edit the pose
   };
-  
 
   return (
     <div className="admin-page">
@@ -320,7 +323,10 @@ function Aasan() {
               placeholder="Adapted Sanskrit Name"
               value={newPose.sanskrit_name_adapted}
               onChange={(e) =>
-                setNewPose({ ...newPose, sanskrit_name_adapted: e.target.value })
+                setNewPose({
+                  ...newPose,
+                  sanskrit_name_adapted: e.target.value,
+                })
               }
               required
             />
