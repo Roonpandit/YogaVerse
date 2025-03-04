@@ -8,6 +8,9 @@ import userLogo from "../../assets/user-logo.jpg";
 
 function NavAdmin() {
   const [userName, setUserName] = useState("Guest");
+    const [userData, setUserData] = useState({
+      photoURL: userLogo, // Default profile picture
+    });
 
   useEffect(() => {
     const fetchUserName = async (uid) => {
@@ -18,6 +21,10 @@ function NavAdmin() {
         if (userDocSnap.exists()) {
           const userData = userDocSnap.data();
           setUserName(userData.name); // ✅ Get the correct username
+                  setUserData((prev) => ({
+                      ...prev,
+                      photoURL: userData.photoURL || userLogo, // Set profile picture
+                    }));
         } else {
           console.warn("User document not found!");
         }
@@ -31,6 +38,7 @@ function NavAdmin() {
         fetchUserName(user.uid); // 🔹 Use UID instead of email
       } else {
         setUserName("Guest");
+        setUserData({ photoURL: userLogo });
       }
     });
 
@@ -50,7 +58,7 @@ function NavAdmin() {
 
         <div className="profile-logo">
           <Link to="/admin">
-            <img src={userLogo} alt="Profile" className="profile-image" />
+            <img src={userData.photoURL} alt="Profile" className="profile-image" />
             <span className="username">{userName}</span>
           </Link>
           <div className="nav-buttons">

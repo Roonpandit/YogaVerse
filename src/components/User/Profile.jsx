@@ -258,7 +258,7 @@ const Profile = () => {
           const ctx = canvas.getContext("2d");
           ctx.drawImage(img, 0, 0, width, height);
   
-          resolve(canvas.toDataURL("image/jpeg", 0.7)); // Convert to Base64 (JPEG with 70% quality)
+          resolve(canvas.toDataURL("image/jpeg", 1.0)); // Convert to Base64 (JPEG with 70% quality)
         };
         img.src = event.target.result;
       };

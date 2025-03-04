@@ -102,28 +102,27 @@ function Admin() {
         </div>
 
         {selectedUser && (
-          <div className="modal-overlay" onClick={() => setSelectedUser(null)}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <h3 className="details-title">User Details</h3>
-              <div className="details-content">
-                {Object.entries(selectedUser).map(([key, value]) => (
-                  <p key={key}>
-                    <strong>{key}:</strong>{" "}
-                    {typeof value === "object"
-                      ? JSON.stringify(value, null, 2)
-                      : value}
-                  </p>
-                ))}
-              </div>
-              <button
-                className="close-btn"
-                onClick={() => setSelectedUser(null)}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        )}
+  <div className="modal-overlay" onClick={() => setSelectedUser(null)}>
+    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <h3 className="details-title">User Details</h3>
+      <div className="details-content">
+        <p><strong>Role:</strong> {selectedUser.role}</p>
+        <p><strong>Name:</strong> {selectedUser.name}</p>
+        <p><strong>DOB:</strong> {selectedUser.dob}</p>
+        <p><strong>Gender:</strong> {selectedUser.gender}</p>
+        <p><strong>Weight:</strong> {selectedUser.weight} kg</p>
+        <p><strong>Height:</strong> {selectedUser.height} cm</p>
+        <p><strong>Email:</strong> {selectedUser.email}</p>
+        <p><strong>UID:</strong> {selectedUser.id}</p>
+
+      </div>
+      <button className="close-btn" onClick={() => setSelectedUser(null)}>
+        Close
+      </button>
+    </div>
+  </div>
+)}
+
       </div>
     </div>
   );
