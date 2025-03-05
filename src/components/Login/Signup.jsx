@@ -46,6 +46,8 @@ const Signup = () => {
         height: "",
         weight: "",
         isProfileComplete: false,
+        createdAt: new Date(),
+        lastLogin: new Date(),
       });
 
       await sendEmailVerification(user);

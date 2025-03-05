@@ -8,7 +8,6 @@ import { auth, googleProvider, db } from "./firebase/firebase-config";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import Navbar from "../box/Navbar";
 import { FcGoogle } from "react-icons/fc";
 import { Eye, EyeOff } from "lucide-react";
 
@@ -37,6 +36,7 @@ const Login = () => {
 
       if (userSnap.exists()) {
         const userData = userSnap.data();
+        await setDoc(userRef, { lastLogin: new Date() }, { merge: true });
         if (!userData.isProfileComplete) {
           navigate("/complete-profile");
         } else {
@@ -71,6 +71,8 @@ const Login = () => {
           photoURL: user.photoURL || "",
           isProfileComplete: false,
           role: "user", // Default role
+          createdAt: new Date(),
+          lastLogin: newDate(),
         });
 
         navigate("/complete-profile", {
@@ -82,6 +84,7 @@ const Login = () => {
         });
       } else {
         const userData = userSnap.data();
+        await setDoc(userRef, { lastLogin: new Date() }, { merge: true });
         if (!userData.isProfileComplete) {
           navigate("/complete-profile", {
             state: {
