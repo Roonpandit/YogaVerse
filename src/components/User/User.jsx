@@ -100,12 +100,10 @@ function User() {
           return newSet;
         });
 
-        alert("Pose removed from favorites!");
         window.location.reload();
       } else {
         await setDoc(favoritesRef, pose);
         setFavoritePoses((prev) => new Set(prev).add(poseId));
-        alert("Pose added to favorites!");
         window.location.reload();
       }
     } catch (error) {

@@ -39,7 +39,22 @@ function Admin() {
       const userDocSnap = await getDoc(userDocRef);
 
       if (userDocSnap.exists()) {
-        setSelectedUser({ id: userId, ...userDocSnap.data() });
+        const userData = userDocSnap.data();
+
+        // Convert Firestore timestamps to readable date strings
+        const formatTimestamp = (timestamp) => {
+          return timestamp?.seconds
+            ? new Date(timestamp.seconds * 1000).toLocaleString()
+            : "N/A";
+        };
+
+        setSelectedUser({
+          id: userId,
+          ...userData,
+          createdAt: formatTimestamp(userData.createdAt),
+          lastLogin: formatTimestamp(userData.lastLogin),
+          isProfileComplete: userData.isProfileComplete ? "Yes" : "No", // Convert boolean to text
+        });
       } else {
         console.log("No such user found!");
       }
@@ -48,25 +63,41 @@ function Admin() {
     }
   };
 
+  const deleteSubcollections = async (userId) => {
+    try {
+      const userSubcollections = ["favorites", "messages"]; // Add subcollections if needed
+
+      for (const subcollection of userSubcollections) {
+        const subcollectionRef = collection(db, "users", userId, subcollection);
+        const snapshot = await getDocs(subcollectionRef);
+
+        // Delete each document inside the subcollection
+        const deletePromises = snapshot.docs.map((doc) => deleteDoc(doc.ref));
+        await Promise.all(deletePromises);
+      }
+    } catch (error) {
+      console.error("Error deleting subcollections:", error);
+    }
+  };
+
   const deleteUser = async (userId) => {
     try {
+      await deleteSubcollections(userId); // First, delete subcollections
+
       const userDocRef = doc(db, "users", userId);
-      await deleteDoc(userDocRef); // Delete from Firestore
+      await deleteDoc(userDocRef); // Then, delete user document
 
-      // Get authentication instance
+      // Delete the user from Firebase Authentication
       const auth = getAuth();
-
-      // Find and delete the user from Firebase Authentication
       const user = auth.currentUser;
       if (user && user.uid === userId) {
         await deleteAuthUser(user);
       }
 
-      // Update UI
       setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
       setSelectedUser(null);
 
-      alert("User deleted successfully from Firestore and Authentication!");
+      alert("User and subcollections deleted successfully!");
     } catch (error) {
       console.error("Error deleting user:", error);
       alert("Error deleting user. Ensure you are an admin.");
@@ -130,6 +161,16 @@ function Admin() {
                 </p>
                 <p>
                   <strong>Email:</strong> {selectedUser.email}
+                </p>
+                <p>
+                  <strong>Created:</strong> {selectedUser.createdAt}
+                </p>
+                <p>
+                  <strong>Completed:</strong> {selectedUser.isProfileComplete}
+                </p>
+
+                <p>
+                  <strong>Last Login:</strong> {selectedUser.lastLogin}
                 </p>
                 <p>
                   <strong>UID:</strong> {selectedUser.id}

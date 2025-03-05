@@ -87,7 +87,6 @@ const Favorite = () => {
         (p) => String(p.id || p.sanskrit_name_adapted) !== poseId
       );
       setFavoritePoses(updatedFavorites);
-      alert("Pose removed from favorites!");
       window.location.reload();
       // Apply current filter to updated favorites
     } catch (error) {
