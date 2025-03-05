@@ -1,102 +1,159 @@
-import React, { useState, useEffect } from 'react';
-import NavUser from './Nav-User';
+import React, { useState, useEffect } from "react";
+import NavUser from "./Nav-User";
+import "./Classes.css";
 
 function Classes() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [yogaTypes, setYogaTypes] = useState([]); // Main Yoga Types (e.g., Hatha Yoga)
+  const [yogaTypes, setYogaTypes] = useState([]);
   const [selectedYogaIndex, setSelectedYogaIndex] = useState(null);
-  const [detailedPoses, setDetailedPoses] = useState([]); // Yoga Poses inside Yoga Type
+  const [detailedPoses, setDetailedPoses] = useState([]);
+  const [selectedPose, setSelectedPose] = useState(null); // For Modal
 
-  // Define category API endpoints
   const categoryEndpoints = {
-    "All Yoga Poses": "https://projects-b8a50-default-rtdb.asia-southeast1.firebasedatabase.app/Yoga/classes/all-yoga-poses.json",
-    "Difficulty Levels": "https://projects-b8a50-default-rtdb.asia-southeast1.firebasedatabase.app/Yoga/classes/yoga-levels.json",
-    "Body Parts": "https://projects-b8a50-default-rtdb.asia-southeast1.firebasedatabase.app/Yoga/classes/body_parts_yoga.json",
-    "Life Style": "https://projects-b8a50-default-rtdb.asia-southeast1.firebasedatabase.app/Yoga/classes/life-style-yoga.json"
+    "All Yoga Poses":
+      "https://projects-b8a50-default-rtdb.asia-southeast1.firebasedatabase.app/Yoga/classes/all-yoga-poses.json",
+    "Difficulty Levels":
+      "https://projects-b8a50-default-rtdb.asia-southeast1.firebasedatabase.app/Yoga/classes/yoga-levels.json",
+    "Body Parts":
+      "https://projects-b8a50-default-rtdb.asia-southeast1.firebasedatabase.app/Yoga/classes/body_parts_yoga.json",
+    "Life Style":
+      "https://projects-b8a50-default-rtdb.asia-southeast1.firebasedatabase.app/Yoga/classes/life-style-yoga.json",
   };
 
-  // Fetch all categories
   useEffect(() => {
     setCategories(Object.keys(categoryEndpoints));
   }, []);
 
-  // Fetch main yoga types when a category is selected
   const handleCategoryClick = async (category) => {
     setSelectedCategory(category);
-    setSelectedYogaIndex(null); // Reset yoga type selection
-    setDetailedPoses([]); // Reset detailed poses
+    setSelectedYogaIndex(null);
+    setDetailedPoses([]);
 
     const response = await fetch(categoryEndpoints[category]);
     const data = await response.json();
     setYogaTypes(data || []);
   };
 
-  // Toggle detailed poses when a yoga type is selected
   const handleYogaTypeClick = async (index) => {
     if (selectedYogaIndex === index) {
-      // Hide poses if the same yoga type is clicked again
       setSelectedYogaIndex(null);
       setDetailedPoses([]);
     } else {
-      // Fetch poses for the selected yoga type
       setSelectedYogaIndex(index);
-      const response = await fetch(`https://projects-b8a50-default-rtdb.asia-southeast1.firebasedatabase.app/Yoga/classes/all-yoga-poses/${index}/scheduled.json`);
+      const response = await fetch(
+        `https://projects-b8a50-default-rtdb.asia-southeast1.firebasedatabase.app/Yoga/classes/all-yoga-poses/${index}/scheduled.json`
+      );
       const data = await response.json();
       setDetailedPoses(data || []);
     }
   };
 
   return (
-    <div>
+    <div className="classes">
       <NavUser />
-      <h1>Yoga Classes</h1>
+      <h1 className="title">Yoga Classes</h1>
 
-      {/* Display Categories */}
-      <div>
+      <div className="category-container">
         {categories.map((category, index) => (
-          <button key={index} onClick={() => handleCategoryClick(category)}>
+          <button
+            key={index}
+            className="category-button"
+            onClick={() => handleCategoryClick(category)}
+          >
             {category}
           </button>
         ))}
       </div>
 
-      {/* Display Main Yoga Types (e.g., Hatha Yoga) */}
       {selectedCategory && (
-        <div>
-          <h2>{selectedCategory}</h2>
+        <div className="yoga-types">
+          <h2 className="category-title">{selectedCategory}</h2>
           {yogaTypes.map((yogaType, index) => (
-            <div key={index} style={{ cursor: 'pointer', border: '1px solid #ccc', padding: '10px', margin: '10px' }}>
-              <img src={yogaType.image} alt={yogaType.name} width="200" />
+            <div key={index} className="yoga-type-card">
+              <img
+                src={yogaType.image}
+                alt={yogaType.name}
+                className="yoga-image"
+              />
               <h3>{yogaType.name}</h3>
-              <p><strong>Description:</strong> {yogaType.description}</p>
-              <p><strong>Total Time:</strong> {yogaType.time_taken}</p>
+              <p>
+                <strong>Description:</strong> {yogaType.description}
+              </p>
+              <p>
+                <strong>Total Time:</strong> {yogaType.time_taken}
+              </p>
 
-              {/* "See All Yoga" Button (Toggles Poses) */}
-              <button onClick={() => handleYogaTypeClick(index)}>
-                {selectedYogaIndex === index ? "Hide Yoga Poses" : "See All Yoga"}
+              <button
+                className="toggle-button"
+                onClick={() => handleYogaTypeClick(index)}
+              >
+                {selectedYogaIndex === index
+                  ? "Hide Yoga Poses"
+                  : "See All Yoga"}
               </button>
-
-              {/* Show Yoga Poses if this yoga type is selected */}
               {selectedYogaIndex === index && detailedPoses.length > 0 && (
                 <div>
-                  <h2>Yoga Poses for {yogaType.name}</h2>
-                  {detailedPoses.map((pose, poseIndex) => (
-                    <div key={poseIndex} style={{ border: '1px solid #ddd', padding: '10px', margin: '10px' }}>
-                      <img src={pose.image} alt={pose.english_name} width="200" />
-                      <h3>{pose.english_name} ({pose.sanskrit_name})</h3>
-                      <p><strong>Category:</strong> {pose.category}</p>
-                      <p><strong>Description:</strong> {pose.description}</p>
-                      <p><strong>Benefits:</strong> {pose.benefits}</p>
-                      <p><strong>Target:</strong> {pose.target}</p>
-                      <p><strong>Time:</strong> {pose.time}</p>
-                      <p><strong>Steps:</strong> {pose.steps}</p>
-                    </div>
-                  ))}
+                  <h2 className="pose-title">Yoga Poses for {yogaType.name}</h2>
+                  <div className="pose-container">
+                    {detailedPoses.map((pose, poseIndex) => (
+                      <div key={poseIndex} className="pose-card">
+                        <h3>
+                          {pose.english_name} ({pose.sanskrit_name})
+                        </h3>
+                        <button
+                          className="details-button"
+                          onClick={() => setSelectedPose(pose)}
+                        >
+                          See Details
+                        </button>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Modal Popup for Pose Details */}
+      {selectedPose && (
+        <div className="modal">
+          <div className="modal-content">
+            <span
+              className="close-button"
+              onClick={() => setSelectedPose(null)}
+            >
+              &times;
+            </span>
+            <h2>
+              {selectedPose.english_name} ({selectedPose.sanskrit_name})
+            </h2>
+            <img
+              src={selectedPose.image}
+              alt={selectedPose.english_name}
+              className="modal-image"
+            />
+            <p>
+              <strong> Total Time:</strong> {selectedPose.time}
+            </p>
+            <p>
+              <strong>Category:</strong> {selectedPose.category}
+            </p>
+            <p>
+              <strong>Description:</strong> {selectedPose.description}
+            </p>
+            <p>
+              <strong>Benefits:</strong> {selectedPose.benefits}
+            </p>
+            <p>
+              <strong>Target:</strong> {selectedPose.target}
+            </p>
+            <p>
+              <strong>Steps:</strong> {selectedPose.steps}
+            </p>
+          </div>
         </div>
       )}
     </div>
