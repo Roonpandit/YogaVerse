@@ -72,7 +72,7 @@ const Login = () => {
           isProfileComplete: false,
           role: "user", // Default role
           createdAt: new Date(),
-          lastLogin: newDate(),
+          lastLogin: new Date(),
         });
 
         navigate("/complete-profile", {
