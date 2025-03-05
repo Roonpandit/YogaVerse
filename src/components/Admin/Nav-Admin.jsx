@@ -15,15 +15,16 @@ function NavAdmin() {
   useEffect(() => {
     const fetchUserName = async (uid) => {
       try {
-        const userDocRef = doc(db, "users", uid); // 🔹 Get user doc by UID
+        const userDocRef = doc(db, "users", uid);
         const userDocSnap = await getDoc(userDocRef);
-
+  
         if (userDocSnap.exists()) {
           const userData = userDocSnap.data();
-          setUserName(userData.name); // ✅ Get the correct username
+          console.log("Fetched user data:", userData); // 🔹 Debugging log
+          setUserName(userData.name);
           setUserData((prev) => ({
             ...prev,
-            photoURL: userData.photoURL || userLogo, // Set profile picture
+            photoURL: userData.photoURL || userLogo,
           }));
         } else {
           console.warn("User document not found!");
@@ -32,16 +33,16 @@ function NavAdmin() {
         console.error("Error fetching user data:", error);
       }
     };
-
+  
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        fetchUserName(user.uid); // 🔹 Use UID instead of email
+        fetchUserName(user.uid);
       } else {
         setUserName("Guest");
         setUserData({ photoURL: userLogo });
       }
     });
-
+  
     return () => unsubscribe();
   }, []);
 
@@ -53,9 +54,6 @@ function NavAdmin() {
         <ul className="nav-links">
           <li>
             <Link to="/admin">Home</Link>
-          </li>
-          <li>
-            <Link to="/add-aasan">Aasan</Link>
           </li>
           <li>
             <Link to="/chat">Chat</Link>

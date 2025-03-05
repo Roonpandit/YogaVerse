@@ -9,7 +9,6 @@ import Contact from "./components/box/Contact";
 
 // ADMIN
 import Admin from "./components/Admin/Admin";
-import Aasan from "./components/Admin/Aasan";
 import AdminChat from "./components/Admin/AdminChat";
 
 // USER
@@ -32,7 +31,6 @@ function App() {
 
         {/* ADMIN  */}
         <Route path="/admin" element={<Admin />} />
-        <Route path="/add-aasan" element={<Aasan />} />
         <Route path="/chat" element={<AdminChat />} />
 
         {/* USER  */}

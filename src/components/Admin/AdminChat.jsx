@@ -30,42 +30,79 @@ const AdminChat = () => {
   const [unreadUsers, setUnreadUsers] = useState(new Set());
 
   useEffect(() => {
-    const fetchUsersWithMessages = async () => {
-      setLoading(true);
-      try {
-        const usersRef = collection(db, "users");
-        const usersSnapshot = await getDocs(usersRef);
-        const filteredUsers = [];
-        const unreadSet = new Set();
-
-        await Promise.all(
-          usersSnapshot.docs.map(async (userDoc) => {
-            const messagesRef = collection(db, "users", userDoc.id, "messages");
-            const messagesSnapshot = await getDocs(messagesRef);
-
-            if (!messagesSnapshot.empty) {
-              filteredUsers.push({ id: userDoc.id, ...userDoc.data() });
-
-              const hasUnread = messagesSnapshot.docs.some(
-                (msg) => !msg.data().isAdminReply && !msg.data().seenByAdmin
-              );
-              if (hasUnread) {
-                unreadSet.add(userDoc.id);
+    setLoading(true); // Start loading state
+  
+    const usersRef = collection(db, "users");
+  
+    // Listen for changes in users collection
+    const unsubscribeUsers = onSnapshot(usersRef, (usersSnapshot) => {
+      const usersList = [];
+      const unreadSet = new Set();
+      const userMessageListeners = [];
+      const userLastMessageMap = new Map();
+  
+      usersSnapshot.forEach((userDoc) => {
+        const user = { id: userDoc.id, ...userDoc.data() };
+  
+        if (user.role === "user") {
+          usersList.push(user);
+  
+          const messagesRef = collection(db, "users", user.id, "messages");
+          const q = query(messagesRef, orderBy("timestamp", "desc")); // Fetch latest messages
+  
+          // Listen for messages of each user
+          const unsubscribeMessages = onSnapshot(q, (messagesSnapshot) => {
+            let latestTimestamp = null;
+            let hasUnread = false;
+  
+            messagesSnapshot.forEach((msgDoc) => {
+              const msgData = msgDoc.data();
+              if (!msgData.isAdminReply && !msgData.seenByAdmin) {
+                hasUnread = true;
               }
+              if (!latestTimestamp) {
+                latestTimestamp = msgData.timestamp?.toDate() || new Date(0);
+              }
+            });
+  
+            if (hasUnread) {
+              unreadSet.add(user.id);
+            } else {
+              unreadSet.delete(user.id);
             }
-          })
-        );
-
-        setUserChats(filteredUsers);
-        setUnreadUsers(unreadSet);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUsersWithMessages();
+  
+            userLastMessageMap.set(user.id, latestTimestamp);
+            setUnreadUsers(new Set(unreadSet)); // Update unread state dynamically
+  
+            // Sorting Logic
+            const sortedUsers = [...usersList].sort((a, b) => {
+              const aHasUnread = unreadSet.has(a.id);
+              const bHasUnread = unreadSet.has(b.id);
+  
+              if (aHasUnread && !bHasUnread) return -1;
+              if (!aHasUnread && bHasUnread) return 1;
+  
+              if (aHasUnread && bHasUnread) {
+                return userLastMessageMap.get(b.id) - userLastMessageMap.get(a.id);
+              }
+  
+              return a.name.localeCompare(b.name);
+            });
+  
+            setUserChats(sortedUsers);
+            setLoading(false);
+          });
+  
+          userMessageListeners.push(unsubscribeMessages);
+        }
+      });
+  
+      return () => {
+        userMessageListeners.forEach((unsubscribe) => unsubscribe());
+      };
+    });
+  
+    return () => unsubscribeUsers();
   }, []);
 
   useEffect(() => {
