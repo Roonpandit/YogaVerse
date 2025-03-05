@@ -57,9 +57,9 @@ function NavUser() {
           <li>
             <Link to="/classes">Classes</Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/challenges">Challenges</Link>
-          </li>
+          </li> */}
         </ul>
 
         <div className="profile-logo">
