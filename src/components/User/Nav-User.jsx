@@ -55,10 +55,7 @@ function NavUser() {
             <Link to="/users">Home</Link>
           </li>
           <li>
-            <Link to="/my-groups">Groups</Link>
-          </li>
-          <li>
-            <Link to="/explore-asanas">Explore Aasan</Link>
+            <Link to="/classes">Classes</Link>
           </li>
           <li>
             <Link to="/challenges">Challenges</Link>

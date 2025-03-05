@@ -15,8 +15,7 @@ import AdminChat from "./components/Admin/AdminChat";
 // USER
 import CompleteProfile from "./components/User/CompleteProfile";
 import User from "./components/User/User";
-import MyGroupsPage from "./components/User/MyGroupsPage";
-import ExploreAsanasPage from "./components/User/ExploreAsanasPage";
+import Classes from "./components/User/Classes";
 import ChallengesPage from "./components/User/ChallengesPage";
 import Profile from "./components/User/Profile";
 
@@ -40,8 +39,7 @@ function App() {
         <Route path="/Complete-Profile" element={<CompleteProfile />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/users" element={<User />} />
-        <Route path="/my-groups" element={<MyGroupsPage />} />
-        <Route path="/explore-asanas" element={<ExploreAsanasPage />} />
+        <Route path="/classes" element={<Classes />} />
         <Route path="/challenges" element={<ChallengesPage />} />
       </Routes>
     </>

@@ -20,7 +20,7 @@
   margin-bottom: 2rem;
 }
 .user-page .poses-container {
-  margin-top: 50px;
+  margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -32,6 +32,7 @@
   display: flex;
   justify-content: center;
   margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .user-page .search-bar input {

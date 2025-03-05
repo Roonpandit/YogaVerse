@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 import "./User.css";
 import NavUser from "./Nav-User";
+import Favorite from "./Favorite"
 import ChatWidget from "./ChatWidget";
 
 function User() {
@@ -98,9 +99,14 @@ function User() {
           newSet.delete(poseId);
           return newSet;
         });
+
+        alert("Pose removed from favorites!");
+        window.location.reload();
       } else {
         await setDoc(favoritesRef, pose);
         setFavoritePoses((prev) => new Set(prev).add(poseId));
+        alert("Pose added to favorites!");
+        window.location.reload();
       }
     } catch (error) {
       console.error("Error updating favorite:", error);
@@ -122,6 +128,7 @@ function User() {
   return (
     <div className="user-page">
       <NavUser />
+      
       <ChatWidget />
       <section className="hero">
         <h1>Transform Your Yoga Journey Together</h1>
@@ -131,7 +138,7 @@ function User() {
           and discover new asanas.
         </p>
       </section>
-
+      <Favorite/>
       <div className="search-bar">
         <input
           type="text"
@@ -140,7 +147,7 @@ function User() {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
-
+      
       <div className="poses-container">
         {currentPoses.length > 0 ? (
           currentPoses.map((pose, index) => {
