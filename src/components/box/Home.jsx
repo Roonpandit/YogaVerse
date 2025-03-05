@@ -37,6 +37,8 @@ function Home() {
             "Ustrasana",
             "Balasana",
             "Eka Pada Rajakapotasana",
+            "Hanumanasana",
+            "Urdhva Dhanurasana"
           ];
 
           // Filter asanas by name
