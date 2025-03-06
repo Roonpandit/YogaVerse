@@ -87,10 +87,10 @@ function User() {
       alert("Please log in to save favorites.");
       return;
     }
-
+  
     const poseId = String(pose.id || pose.sanskrit_name_adapted);
     const favoritesRef = doc(db, `users/${user.uid}/favorites`, poseId);
-
+  
     try {
       if (favoritePoses.has(poseId)) {
         await deleteDoc(favoritesRef);
@@ -99,12 +99,9 @@ function User() {
           newSet.delete(poseId);
           return newSet;
         });
-
-        window.location.reload();
       } else {
         await setDoc(favoritesRef, pose);
-        setFavoritePoses((prev) => new Set(prev).add(poseId));
-        window.location.reload();
+        setFavoritePoses((prev) => new Set([...prev, poseId]));
       }
     } catch (error) {
       console.error("Error updating favorite:", error);

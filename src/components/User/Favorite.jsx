@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { onAuthStateChanged } from "firebase/auth";
+import { onSnapshot } from "firebase/firestore";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./Favorite.css";
 
@@ -21,18 +22,34 @@ const Favorite = () => {
   const [selectedPose, setSelectedPose] = useState(null);
   
 
-  const fetchFavorites = async (userId) => {
-    try {
-      const favoritesRef = collection(db, "users", userId, "favorites");
-      const querySnapshot = await getDocs(favoritesRef);
-      const poses = querySnapshot.docs.map((doc) => doc.data());
+  const fetchFavorites = (userId) => {
+    const favoritesRef = collection(db, "users", userId, "favorites");
+  
+    return onSnapshot(favoritesRef, (snapshot) => {
+      const poses = snapshot.docs.map((doc) => doc.data());
       setFavoritePoses(poses);
-      setFilteredFavorites(poses); // Initialize filtered favorites with all favorites
-    } catch (err) {
-      console.error("Error fetching favorites:", err);
+      setFilteredFavorites(poses);
+    }, (error) => {
+      console.error("Error fetching favorites:", error);
       setError("Failed to load favorites");
-    }
+    });
   };
+  
+  useEffect(() => {
+    let unsubscribe;
+    
+    const authUnsub = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        unsubscribe = fetchFavorites(user.uid);
+      }
+      setLoading(false);
+    });
+  
+    return () => {
+      authUnsub();
+      if (unsubscribe) unsubscribe();
+    };
+  }, []);
   const calculatePosition = (index) => {
     const totalItems = filteredFavorites.length;
     const currentPage = currentPosePage;
@@ -48,22 +65,7 @@ const Favorite = () => {
   const getPoseId = (pose) => {
     return pose.id || pose.sanskrit_name_adapted || "unknown-id";
   };
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const userRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(userRef);
 
-        if (docSnap.exists()) {
-          fetchFavorites(user.uid);
-        } else {
-        }
-      }
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, []);
 
   const toggleFavorite = async (pose) => {
     if (!auth.currentUser) {

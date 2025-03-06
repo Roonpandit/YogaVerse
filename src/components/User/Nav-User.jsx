@@ -4,7 +4,8 @@ import { auth, db } from "../Login/firebase/firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import "./Nav-User.css";
-import userLogo from "../../assets/user-logo.jpg"; // Default logo
+import userLogo from "../../assets/user-logo.jpg";
+import logo from "../../assets/Logo-Yogaverse.png"; // Default logo
 
 function NavUser() {
   const [userName, setUserName] = useState("Guest");
@@ -48,7 +49,12 @@ function NavUser() {
   return (
     <nav className="nav-user">
       <div className="navbars-container">
-        <Link className="navbars-logo">YogaVerse</Link>
+        <div className="Navbar">
+          <Link className="logo-link">
+            <img src={logo} alt="YogaVerse logo" />
+            <span>YogaVerse</span>
+          </Link>
+        </div>
 
         <ul className="nav-links">
           <li>

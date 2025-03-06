@@ -5,6 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import "./Nav-Admin.css";
 import userLogo from "../../assets/user-logo.jpg";
+import logo from "../../assets/Logo-Yogaverse.png";
 
 function NavAdmin() {
   const [userName, setUserName] = useState("Guest");
@@ -49,8 +50,12 @@ function NavAdmin() {
   return (
     <nav className="nav-admin">
       <div className="navbars-container">
-        <Link className="navbars-logo">YogaVerse</Link>
-
+      <div className="Navbar">
+          <Link className="logo-link">
+            <img src={logo} alt="YogaVerse logo" />
+            <span>YogaVerse</span>
+          </Link>
+        </div>
         <ul className="nav-links">
           <li>
             <Link to="/admin">Home</Link>

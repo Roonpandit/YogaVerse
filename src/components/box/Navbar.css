@@ -1,6 +1,6 @@
 .navbars {
   background-color: #ffffff;
-  height: 80px;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,26 +19,38 @@
   padding: 0 24px;
 }
 
-.navbars .navbars-logo {
-  color: #4a9d76;
-  font-size: 2rem;
-  font-weight: bold;
-  text-decoration: none;
+.navbars .Navbar {
   display: flex;
   align-items: center;
-  font-family: "Times New Roman", Times, serif;
+}
+.navbars .Navbar a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  font-size: x-large;
+}
+.navbars .Navbar span{
+  margin-left: 0px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: larger;
+}
+.navbars .Navbar img {
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 0px;
 }
 
 .navbars .nav-buttons {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 0px;
 }
 
 .navbars .nav-btn {
   color: #333;
   text-decoration: none;
-  padding: 8px 16px;
+  padding: 3px 10px;
   border-radius: 4px;
   font-size: 18px;
   font-weight: 500;
@@ -54,16 +66,16 @@
 }
 
 .navbars .nav-button-signup {
-  background-color: #4a9d76;
-  color: white;
-  text-decoration: none;
-  padding: 8px 16px;
+  background: none;
+  color: black;
+  padding: 1px 10px;
   border-radius: 4px;
-  font-weight: 800;
-  transition: all 0.3s ease;
+  text-decoration: none;
+  font-weight:600;
+  font-size: 20px;
   font-family: "Times New Roman", Times, serif;
 }
 
 .navbars .nav-button-signup:hover {
-  background-color: #3a8c65;
+  background-color: #f0f0f0;
 }

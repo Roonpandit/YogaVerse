@@ -7,10 +7,20 @@
   /* Title */
   .classes .title {
     color: #000;
-    font-size: 2rem;
+    font-size: 3rem;
     margin-bottom: 20px;
+    font-family: 'Times New Roman', Times, serif;
   }
   
+  .classes .title::after {
+    content: "";
+    display: block; /* Ensures the underline appears properly */
+    margin: 1px auto 0; /* Centers the underline and positions it correctly */
+    width: 200px;
+    height: 3px;
+    background-color: #5a3e84;
+}
+
   /* Category Buttons */
   .classes .category-container {
     display: flex;
@@ -20,18 +30,19 @@
   }
   
   .classes .category-button {
-    background-color: #3498db;
+    background-color: #4a9d76;
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 8px 15px;
     cursor: pointer;
     border-radius: 5px;
     transition: background 0.3s ease;
+    font-size: medium;
     font-family: 'Times New Roman', Times, serif;
   }
   
   .classes .category-button:hover {
-    background-color: #2980b9;
+    background-color: #33865f;
   }
   
   /* Yoga Types Grid */
@@ -42,9 +53,10 @@
   }
   
   .classes .category-title {
-    color: #8d2020;
+    color: #000;
     font-size: 1.5rem;
-    margin-bottom: 15px;
+    margin-bottom: 1px;
+    font-family: 'Times New Roman', Times, serif;
   }
   .classes .yoga-type-card {
     border: 1px solid #ddd;
@@ -58,24 +70,31 @@
   .classes .yoga-image {
     width: 300px;
     border-radius: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
   }
   
   .classes .yoga-type-card h3 {
-    margin: 10px 0;
     color: #2c3e50;
+    font-size: 25px;
+    margin-top: 0px;
+    font-family: 'Times New Roman', Times, serif;
   }
   
   .classes .yoga-type-card p {
-    font-size: 0.9rem;
-    color: #555;
+    font-size: 1rem;
+    color:black;
+    font-family: 'Times New Roman', Times, serif;
   }
-  
+  .classes .yoga-type-card strong {
+    font-size: 1.3rem;
+    color:black;
+    font-family: 'Times New Roman', Times, serif;
+  }
   .classes .toggle-button {
     background-color: #27ae60;
     color: #fff;
     border: none;
-    padding: 10px;
+    padding: 5px 10px;
     font-size: 1rem;
     cursor: pointer;
     border-radius: 5px;
@@ -96,12 +115,16 @@
   }
   
   .classes .pose-title {
-    color: #8e44ad;
+    color: #000;
     font-size: 1.4rem;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    font-family: 'Times New Roman', Times, serif;
   }
   
   .classes .pose-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background: #fff;
     padding: 15px;
     border-radius: 10px;
@@ -115,10 +138,10 @@
   }
   
   .classes .details-button {
-    background-color: #e74c3c;
+    background-color: #6f509c;
     color: white;
     border: none;
-    padding: 8px 15px;
+    padding: 5px 10px;
     font-size: 1rem;
     cursor: pointer;
     border-radius: 5px;
@@ -127,7 +150,7 @@
   }
   
   .classes .details-button:hover {
-    background-color: #c0392b;
+    background-color: #5a3e84;
   }
   
   /* Modal */
@@ -158,7 +181,21 @@
     max-height: 90vh; /* Limits height to prevent overflow */
     overflow-y: auto;
   }
-  
+  .classes  .modal-content h2{
+    font-size: 2rem;
+    color:black;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  .classes  .modal-content p{
+    font-size: 1rem;
+    color:black;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  .classes  .modal-content strong{
+    font-size: 1.1rem;
+    color:black;
+    font-family: 'Times New Roman', Times, serif;
+  }
   .classes .modal-image {
     width: 100%;
     border-radius: 8px;

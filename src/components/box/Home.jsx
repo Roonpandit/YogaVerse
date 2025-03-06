@@ -301,7 +301,7 @@ function Home() {
 
       <footer className="footer">
         <div className="footer-content">
-          <p>&copy; 2025 YogaLife. All rights reserved.</p>
+          <p>&copy; 2025 YogaVerse. All rights reserved.</p>
         </div>
       </footer>
     </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import NavUser from "./Nav-User";
 import "./Classes.css";
+import ChatWidget from "./ChatWidget";
 
 function Classes() {
   const [categories, setCategories] = useState([]);
@@ -23,6 +24,19 @@ function Classes() {
 
   useEffect(() => {
     setCategories(Object.keys(categoryEndpoints));
+    
+    // Set "Difficulty Levels" as the default selected category
+    const defaultCategory = "Difficulty Levels";
+    setSelectedCategory(defaultCategory);
+  
+    // Fetch the yoga types for the default category
+    const fetchDefaultCategory = async () => {
+      const response = await fetch(categoryEndpoints[defaultCategory]);
+      const data = await response.json();
+      setYogaTypes(data || []);
+    };
+  
+    fetchDefaultCategory();
   }, []);
 
   const handleCategoryClick = async (category) => {
@@ -52,6 +66,7 @@ function Classes() {
   return (
     <div className="classes">
       <NavUser />
+      <ChatWidget/>
       <h1 className="title">Yoga Classes</h1>
 
       <div className="category-container">
