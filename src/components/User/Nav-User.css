@@ -46,12 +46,7 @@
 }
 
 .nav-user .nav-links {
-  display: flex;
-  list-style: none;
-}
-
-.nav-user .nav-links li {
-  margin-left: 1.5rem;
+  gap: 20px;
 }
 
 .nav-user .nav-links a {
@@ -82,11 +77,6 @@
   background-color: #be1a27;
 }
 
-.nav-user .profile-logo {
-  display: flex;
-  align-items: center;
-  transition: transform 0.2s ease-in-out;
-}
 .nav-user .profile-logo a {
   display: flex;
   align-items: center;
@@ -94,11 +84,11 @@
   color: white;
 }
 .nav-user .profile-image {
-  width: 30px; /* Adjust size as needed */
+  width: 30px;
   height: 30px;
-  border-radius: 50%; /* Makes the image circular */
+  border-radius: 50%;
   cursor: pointer;
-  object-fit: cover; /* Ensures the image scales well */
+  object-fit: cover;
 }
 .nav-user .username {
   font-family: "Times New Roman", Times, serif;
@@ -109,4 +99,105 @@
   margin-left: 5px;
   margin-right: 20px;
   transition: color 0.3s ease;
+}
+
+/* Mobile Profile Icon (only visible on mobile) */
+
+/* Sidebar Styles */
+.nav-user .sidebar {
+  position: fixed;
+  top: 60px;
+  right: -250px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease;
+  z-index: 1001;
+}
+
+.nav-user .sidebar.open {
+  right: 0;
+}
+
+.nav-user .sidebar-header {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-bottom: 1px solid #000;
+  margin-top: 0px;
+}
+
+.nav-user .sidebar-username {
+  font-family: "Times New Roman", Times, serif;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.nav-user .sidebar-content {
+  display: flex;
+  flex-direction: column;
+  padding: 2px 1px;
+}
+
+.nav-user .sidebar-link {
+  padding: 10px;
+  text-decoration: none;
+  color: #333;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #000;
+  transition: background-color 0.2s;
+}
+
+.nav-user .sidebar-link:hover {
+  background-color: #f5f5f5;
+}
+
+.nav-user .sidebar-logout {
+  padding: 10px;
+  text-decoration: none;
+  color: #d32f2f;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Overlay */
+.nav-user .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+/* Show desktop elements on larger screens, hide on mobile */
+.nav-user .desktop-only {
+  display: flex;
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+  .nav-user .desktop-only {
+    display: none;
+  }
+  .nav-user .mobile-profile .profile-image {
+    width: 40px;
+    height: 40px;
+  }
+  .nav-user .mobile-profile {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .nav-user .sidebar {
+    display: none;
+  }
+
+  .nav-user .overlay {
+    display: none;
+  }
 }

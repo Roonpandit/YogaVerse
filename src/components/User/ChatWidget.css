@@ -126,3 +126,65 @@
 .chatty .chat-input button:hover {
   background: #0056b3; /* Darker blue on hover */
 }
+
+/* Media queries for responsive design */
+@media screen and (max-width: 480px) {
+  .chatty .chat-popup {
+    width: 90%;
+    height: 350px;
+    right: 5%;
+    left: 5%;
+    bottom: 70px;
+  }
+  
+  .chatty .chat-messages {
+    max-height: 240px;
+  }
+  
+  .chatty .message {
+    max-width: 90%;
+    font-size: 13px;
+  }
+  
+  .chatty .chat-input {
+    width: 88%;
+  }
+  
+  .chatty .chat-input input {
+    padding: 6px;
+    font-size: 13px;
+  }
+  
+  .chatty .chat-input button {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .chatty .chat-popup {
+    height: 300px;
+    bottom: 65px;
+  }
+  
+  .chatty .chat-messages {
+    max-height: 200px;
+    padding: 8px;
+  }
+  
+  .chatty .message {
+    padding: 8px;
+    font-size: 12px;
+  }
+  
+  .chatty .chat-input {
+    bottom: 10px;
+    gap: 5px;
+    width: 85%;
+  }
+  
+  .chatty .chat-button {
+    bottom: 15px;
+    right: 15px;
+  }
+}

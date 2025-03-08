@@ -347,22 +347,15 @@
 }
 
 @media (max-width: 480px) {
-  .fav .hero-content h1 {
-    font-size: 1.8rem;
-  }
-
-  .fav .hero-content p {
-    font-size: 1rem;
-  }
 
   .fav .book-slider-container {
-    height: 320px;
-    width: 350px;
+    height: 300px;
+    width: 330px;
   }
 
   .fav .book-slide {
     width: 220px;
-    height: 280px;
+    height: 240px;
   }
 
   .fav .yoga-image {
@@ -370,6 +363,6 @@
   }
 
   .fav .yoga-name {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 }

@@ -203,7 +203,6 @@
 .user-page .heart-btn.favorited {
   color: red; /* Make the heart red when favorited */
 }
-
 /* Animation for Modal */
 @keyframes fadeIn {
   from {
@@ -221,5 +220,9 @@
   .user-page .modal-content {
     width: 95%;
     max-width: 350px;
+  }
+  .user-page .hero p {
+    font-size: 0.9rem;
+
   }
 }

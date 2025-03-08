@@ -1,123 +1,4 @@
-/* .nav-admin {
-  background-color: #ffffff;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 999;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.nav-admin .navbars-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 1200px;
-  padding: 0 24px;
-}
-.nav-admin .Navbar {
-  display: flex;
-  align-items: center;
-}
-.nav-admin .Navbar a {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: black;
-  font-size: x-large;
-}
-.nav-admin .Navbar span {
-  margin-left: 0px;
-  font-family: "Times New Roman", Times, serif;
-  font-size: larger;
-}
-.nav-admin .Navbar img {
-  height: 50px;
-  border-radius: 50%;
-  margin-right: 0px;
-}
-
-.nav-admin .nav-buttons {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.nav-admin .nav-links {
-  display: flex;
-  list-style: none;
-}
-
-.nav-admin .nav-links li {
-  margin-left: 1.5rem;
-}
-
-.nav-admin .nav-links a {
-  color: black;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s;
-  font-size: 20px;
-}
-
-.nav-admin .nav-links a:hover,
-.nav-admin .nav-links a.active {
-  color: var(--accent);
-}
-
-.nav-admin .nav-button-signup {
-  background-color: #c92936;
-  color: white;
-  text-decoration: none;
-  padding: 2px 10px;
-  border-radius: 4px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  font-family: "Times New Roman", Times, serif;
-}
-
-.nav-admin .nav-button-signup:hover {
-  background-color: #be1a27;
-}
-
-.nav-admin .profile-logo {
-  display: flex;
-  align-items: center;
-  transition: transform 0.2s ease-in-out;
-}
-.nav-admin .profile-logo a {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: white;
-}
-.nav-admin .profile-images {
-  width: 30px; 
-  height: 30px;
-  border-radius: 50%; 
-  cursor: pointer;
-  object-fit: cover; 
-}
-.nav-admin .username {
-  font-family: "Times New Roman", Times, serif;
-  text-decoration: none;
-  color: black;
-  font-size: 15px;
-  font-weight: bold;
-  margin-left: 5px;
-  margin-right: 20px;
-  transition: color 0.3s ease;
-}
-
- */
-
-
-
- /* Existing styles - Add these to your existing CSS */
- .nav-admin {
+.nav-admin {
   background-color: #ffffff;
   height: 60px;
   display: flex;
@@ -203,11 +84,11 @@
   color: white;
 }
 .nav-admin .profile-images {
-  width: 30px; 
+  width: 30px;
   height: 30px;
-  border-radius: 50%; 
+  border-radius: 50%;
   cursor: pointer;
-  object-fit: cover; 
+  object-fit: cover;
 }
 .nav-admin .username {
   font-family: "Times New Roman", Times, serif;
@@ -236,7 +117,7 @@
 }
 
 /* New Sidebar Styles */
-.sidebar {
+.nav-admin .sidebar {
   position: fixed;
   top: 60px;
   right: -250px;
@@ -248,17 +129,17 @@
   z-index: 1001;
 }
 
-.sidebar.open {
+.nav-admin .sidebar.open {
   right: 0;
 }
 
-.sidebar-content {
+.nav-admin .sidebar-content {
   display: flex;
   flex-direction: column;
   padding: 2px 1px;
 }
 
-.sidebar-link {
+.nav-admin .sidebar-link {
   padding: 10px;
   text-decoration: none;
   color: #333;
@@ -267,7 +148,7 @@
   transition: background-color 0.2s;
 }
 
-.sidebar-link:hover {
+.nav-admin .sidebar-link:hover {
   background-color: #f5f5f5;
 }
 
@@ -277,7 +158,7 @@
 }
 
 /* Overlay */
-.overlay {
+.nav-admin .overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -288,32 +169,31 @@
 }
 
 /* Show desktop elements on larger screens, hide on mobile */
-.desktop-only {
+.nav-admin .desktop-only {
   display: flex;
 }
 
 /* Media Queries */
 @media screen and (max-width: 768px) {
-  .desktop-only {
+  .nav-admin .desktop-only {
     display: none !important;
   }
-  
+
   .nav-admin .profile-logo {
     margin-left: auto;
   }
   .nav-admin .profile-images {
-    width: 40px; 
+    width: 40px;
     height: 40px;
-
   }
 }
 
 @media screen and (min-width: 769px) {
-  .sidebar {
+  .nav-admin .sidebar {
     display: none;
   }
-  
-  .overlay {
+
+  .nav-admin .overlay {
     display: none;
   }
 }

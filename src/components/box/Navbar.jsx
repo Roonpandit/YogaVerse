@@ -19,7 +19,7 @@ function Navbar() {
             <span>YogaVerse</span>
           </Link>
         </div>
-        
+
         {/* Desktop navigation buttons */}
         <div className="nav-buttons desktop-nav">
           <Link to="/login" className="nav-button-signup">
@@ -29,10 +29,10 @@ function Navbar() {
             Contact Us
           </Link>
         </div>
-        
+
         {/* Mobile menu hamburger icon */}
         <div className="mobile-menu-icon" onClick={toggleSidebar}>
-          <div className={`hamburger ${sidebarOpen ? 'active' : ''}`}>
+          <div className={`hamburger ${sidebarOpen ? "active" : ""}`}>
             <span></span>
             <span></span>
             <span></span>
@@ -41,7 +41,7 @@ function Navbar() {
       </div>
 
       {/* Mobile sidebar */}
-      <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
+      <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
         <div className="sidebar-content">
           <Link to="/login" className="sidebar-link" onClick={toggleSidebar}>
             Login
@@ -51,9 +51,11 @@ function Navbar() {
           </Link>
         </div>
       </div>
-      
+
       {/* Overlay when sidebar is open */}
-      {sidebarOpen && <div className="sidebar-overlay" onClick={toggleSidebar}></div>}
+      {sidebarOpen && (
+        <div className="sidebar-overlay" onClick={toggleSidebar}></div>
+      )}
     </nav>
   );
 }

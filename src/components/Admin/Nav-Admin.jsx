@@ -58,7 +58,7 @@ function NavAdmin() {
             <span>YogaVerse</span>
           </Link>
         </div>
-        
+
         {/* Desktop nav links */}
         <ul className="nav-links desktop-only">
           <li>
@@ -85,9 +85,9 @@ function NavAdmin() {
           </div>
         </div>
       </div>
-      
+
       {/* Mobile sidebar */}
-      <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
+      <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
         <div className="sidebar-content">
           <Link to="/admin" className="sidebar-link" onClick={toggleSidebar}>
             Users
@@ -100,7 +100,7 @@ function NavAdmin() {
           </Link>
         </div>
       </div>
-      
+
       {/* Overlay */}
       {sidebarOpen && <div className="overlay" onClick={toggleSidebar}></div>}
     </nav>

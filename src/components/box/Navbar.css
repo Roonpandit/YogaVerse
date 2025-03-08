@@ -50,8 +50,8 @@
   font-weight: 500;
   font-family: "Times New Roman", Times, serif;
   transition: all 0.3s ease;
-  border: none; 
-  background-color: transparent; 
+  border: none;
+  background-color: transparent;
   cursor: pointer;
 }
 
@@ -74,12 +74,12 @@
   background-color: #f0f0f0;
 }
 /* Mobile menu icon */
-.mobile-menu-icon {
+.navbars .mobile-menu-icon {
   display: none;
   cursor: pointer;
 }
 
-.hamburger {
+.navbars .hamburger {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -88,7 +88,7 @@
   right: 0px;
 }
 
-.hamburger span {
+.navbars .hamburger span {
   display: block;
   height: 2px;
   width: 100%;
@@ -98,45 +98,45 @@
   right: 0px;
 }
 
-.hamburger.active span:nth-child(1) {
+.navbars .hamburger.active span:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
 
-.hamburger.active span:nth-child(2) {
+.navbars .hamburger.active span:nth-child(2) {
   opacity: 0;
 }
 
-.hamburger.active span:nth-child(3) {
+.navbars .hamburger.active span:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
 }
 
 /* Sidebar styles */
-.sidebar {
+.navbars .sidebar {
   position: fixed;
   top: 60px;
   right: -250px;
   border-top-left-radius: 10px;
-border-bottom-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   background-color: white;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
   transition: right 0.3s ease;
   z-index: 1001;
 }
 
-.sidebar.open {
+.navbars .sidebar.open {
   right: 0;
 }
 
-.sidebar-content {
+.navbars .sidebar-content {
   display: flex;
   flex-direction: column;
   padding: 2px 1px;
 }
-.sidebar-content :last-child {
-margin-bottom: 5px;
+.navbars .sidebar-content :last-child {
+  margin-bottom: 5px;
 }
 
-.sidebar-link {
+.navbars .sidebar-link {
   padding: 10px;
   text-decoration: none;
   color: #333;
@@ -145,11 +145,11 @@ margin-bottom: 5px;
   transition: background-color 0.2s;
 }
 
-.sidebar-link:hover {
+.navbars .sidebar-link:hover {
   background-color: #f5f5f5;
 }
 
-.sidebar-overlay {
+.navbars .sidebar-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -161,11 +161,11 @@ margin-bottom: 5px;
 
 /* Media queries */
 @media (max-width: 768px) {
-  .desktop-nav {
+  .navbars .desktop-nav {
     display: none;
   }
-  
-  .mobile-menu-icon {
+
+  .navbars .mobile-menu-icon {
     display: block;
   }
 }
