@@ -31,30 +31,30 @@ const AdminChat = () => {
 
   useEffect(() => {
     setLoading(true); // Start loading state
-  
+
     const usersRef = collection(db, "users");
-  
+
     // Listen for changes in users collection
     const unsubscribeUsers = onSnapshot(usersRef, (usersSnapshot) => {
       const usersList = [];
       const unreadSet = new Set();
       const userMessageListeners = [];
       const userLastMessageMap = new Map();
-  
+
       usersSnapshot.forEach((userDoc) => {
         const user = { id: userDoc.id, ...userDoc.data() };
-  
+
         if (user.role === "user") {
           usersList.push(user);
-  
+
           const messagesRef = collection(db, "users", user.id, "messages");
           const q = query(messagesRef, orderBy("timestamp", "desc")); // Fetch latest messages
-  
+
           // Listen for messages of each user
           const unsubscribeMessages = onSnapshot(q, (messagesSnapshot) => {
             let latestTimestamp = null;
             let hasUnread = false;
-  
+
             messagesSnapshot.forEach((msgDoc) => {
               const msgData = msgDoc.data();
               if (!msgData.isAdminReply && !msgData.seenByAdmin) {
@@ -64,44 +64,46 @@ const AdminChat = () => {
                 latestTimestamp = msgData.timestamp?.toDate() || new Date(0);
               }
             });
-  
+
             if (hasUnread) {
               unreadSet.add(user.id);
             } else {
               unreadSet.delete(user.id);
             }
-  
+
             userLastMessageMap.set(user.id, latestTimestamp);
             setUnreadUsers(new Set(unreadSet)); // Update unread state dynamically
-  
+
             // Sorting Logic
             const sortedUsers = [...usersList].sort((a, b) => {
               const aHasUnread = unreadSet.has(a.id);
               const bHasUnread = unreadSet.has(b.id);
-  
+
               if (aHasUnread && !bHasUnread) return -1;
               if (!aHasUnread && bHasUnread) return 1;
-  
+
               if (aHasUnread && bHasUnread) {
-                return userLastMessageMap.get(b.id) - userLastMessageMap.get(a.id);
+                return (
+                  userLastMessageMap.get(b.id) - userLastMessageMap.get(a.id)
+                );
               }
-  
+
               return a.name.localeCompare(b.name);
             });
-  
+
             setUserChats(sortedUsers);
             setLoading(false);
           });
-  
+
           userMessageListeners.push(unsubscribeMessages);
         }
       });
-  
+
       return () => {
         userMessageListeners.forEach((unsubscribe) => unsubscribe());
       };
     });
-  
+
     return () => unsubscribeUsers();
   }, []);
 

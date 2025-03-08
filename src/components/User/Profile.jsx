@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { auth, db } from "../Login/firebase/firebase-config";
-import {
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
@@ -86,8 +81,6 @@ const Profile = () => {
       alert("Failed to update profile.");
     }
   };
-
-
 
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];

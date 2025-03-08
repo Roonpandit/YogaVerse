@@ -1,5 +1,5 @@
 import React from "react";
-import "./Challenges.css"
+import "./Challenges.css";
 
 function ChallengeCard({ challenge }) {
   return (

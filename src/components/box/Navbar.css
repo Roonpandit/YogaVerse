@@ -30,9 +30,9 @@
   color: black;
   font-size: x-large;
 }
-.navbars .Navbar span{
+.navbars .Navbar span {
   margin-left: 0px;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
   font-size: larger;
 }
 .navbars .Navbar img {
@@ -71,7 +71,7 @@
   padding: 1px 10px;
   border-radius: 4px;
   text-decoration: none;
-  font-weight:600;
+  font-weight: 600;
   font-size: 20px;
   font-family: "Times New Roman", Times, serif;
 }

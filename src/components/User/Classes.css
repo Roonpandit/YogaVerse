@@ -1,250 +1,249 @@
-
-  /* Main Container */
-  .classes {
-    text-align: center;
-  }
-  
-  /* Title */
-  .classes .title {
-    color: #000;
-    font-size: 3rem;
-    margin-bottom: 20px;
-    font-family: 'Times New Roman', Times, serif;
-  }
-  
-  .classes .title::after {
-    content: "";
-    display: block; /* Ensures the underline appears properly */
-    margin: 1px auto 0; /* Centers the underline and positions it correctly */
-    width: 200px;
-    height: 3px;
-    background-color: #5a3e84;
+/* Main Container */
+.classes {
+  text-align: center;
 }
 
-  /* Category Buttons */
+/* Title */
+.classes .title {
+  color: #000;
+  font-size: 3rem;
+  margin-bottom: 20px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.classes .title::after {
+  content: "";
+  display: block; /* Ensures the underline appears properly */
+  margin: 1px auto 0; /* Centers the underline and positions it correctly */
+  width: 200px;
+  height: 3px;
+  background-color: #5a3e84;
+}
+
+/* Category Buttons */
+.classes .category-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.classes .category-button {
+  background-color: #4a9d76;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+  font-size: medium;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.classes .category-button:hover {
+  background-color: #33865f;
+}
+
+/* Yoga Types Grid */
+.classes .yoga-types {
+  text-align: center;
+  max-width: 90%;
+  margin: auto;
+}
+
+.classes .category-title {
+  color: #000;
+  font-size: 1.5rem;
+  margin-bottom: 1px;
+  font-family: "Times New Roman", Times, serif;
+}
+.classes .yoga-type-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.classes .yoga-image {
+  width: 300px;
+  border-radius: 10px;
+  margin-bottom: 0px;
+}
+
+.classes .yoga-type-card h3 {
+  color: #2c3e50;
+  font-size: 25px;
+  margin-top: 0px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.classes .yoga-type-card p {
+  font-size: 1rem;
+  color: black;
+  font-family: "Times New Roman", Times, serif;
+}
+.classes .yoga-type-card strong {
+  font-size: 1.3rem;
+  color: black;
+  font-family: "Times New Roman", Times, serif;
+}
+.classes .toggle-button {
+  background-color: #27ae60;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+  transition: background 0.3s ease-in-out;
+}
+
+.classes .toggle-button:hover {
+  background-color: #1e8449;
+}
+
+/* Pose Container */
+.classes .pose-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  gap: 20px;
+}
+
+.classes .pose-title {
+  color: #000;
+  font-size: 1.4rem;
+  margin-top: 10px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.classes .pose-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 250px;
+  min-height: 180px;
+  max-height: 180px;
+  margin: auto;
+}
+
+.classes .details-button {
+  background-color: #6f509c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+  transition: background 0.3s ease-in-out;
+}
+
+.classes .details-button:hover {
+  background-color: #5a3e84;
+}
+
+/* Modal */
+.classes .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.classes .modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-in-out;
+  max-height: 90vh; /* Limits height to prevent overflow */
+  overflow-y: auto;
+}
+.classes .modal-content h2 {
+  font-size: 2rem;
+  color: black;
+  font-family: "Times New Roman", Times, serif;
+}
+.classes .modal-content p {
+  font-size: 1rem;
+  color: black;
+  font-family: "Times New Roman", Times, serif;
+}
+.classes .modal-content strong {
+  font-size: 1.1rem;
+  color: black;
+  font-family: "Times New Roman", Times, serif;
+}
+.classes .modal-image {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.classes .close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.classes .close-button:hover {
+  color: #c0392b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .classes .category-container {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .classes .category-button {
-    background-color: #4a9d76;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background 0.3s ease;
-    font-size: medium;
-    font-family: 'Times New Roman', Times, serif;
-  }
-  
-  .classes .category-button:hover {
-    background-color: #33865f;
-  }
-  
-  /* Yoga Types Grid */
-  .classes .yoga-types {
-    text-align: center;
-    max-width: 90%;
-    margin: auto;
-  }
-  
-  .classes .category-title {
-    color: #000;
-    font-size: 1.5rem;
-    margin-bottom: 1px;
-    font-family: 'Times New Roman', Times, serif;
-  }
-  .classes .yoga-type-card {
-    border: 1px solid #ddd;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    text-align: center;
-  }
-  
-  .classes .yoga-image {
-    width: 300px;
-    border-radius: 10px;
-    margin-bottom: 0px;
-  }
-  
-  .classes .yoga-type-card h3 {
-    color: #2c3e50;
-    font-size: 25px;
-    margin-top: 0px;
-    font-family: 'Times New Roman', Times, serif;
-  }
-  
-  .classes .yoga-type-card p {
-    font-size: 1rem;
-    color:black;
-    font-family: 'Times New Roman', Times, serif;
-  }
-  .classes .yoga-type-card strong {
-    font-size: 1.3rem;
-    color:black;
-    font-family: 'Times New Roman', Times, serif;
-  }
-  .classes .toggle-button {
-    background-color: #27ae60;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
-    transition: background 0.3s ease-in-out;
-  }
-  
-  .classes .toggle-button:hover {
-    background-color: #1e8449;
-  }
-  
-  /* Pose Container */
-  .classes .pose-container {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 15px;
-    gap: 20px;
-  }
-  
-  .classes .pose-title {
-    color: #000;
-    font-size: 1.4rem;
-    margin-top: 10px;
-    font-family: 'Times New Roman', Times, serif;
-  }
-  
-  .classes .pose-card {
-    display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    background: #fff;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 100%;
-    max-width: 250px;
-    min-height: 180px;
-    max-height: 180px;
-    margin: auto;
-  }
-  
-  .classes .details-button {
-    background-color: #6f509c;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
-    transition: background 0.3s ease-in-out;
-  }
-  
-  .classes .details-button:hover {
-    background-color: #5a3e84;
-  }
-  
-  /* Modal */
-  .classes .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
     align-items: center;
-    z-index: 1000;
-    overflow-y: auto;
   }
-  
-  .classes  .modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
+
+  .classes .yoga-types {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .classes .yoga-type-card {
     width: 90%;
-    max-width: 500px;
-    text-align: center;
-    position: relative;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 0.3s ease-in-out;
-    max-height: 90vh; /* Limits height to prevent overflow */
-    overflow-y: auto;
   }
-  .classes  .modal-content h2{
-    font-size: 2rem;
-    color:black;
-    font-family: 'Times New Roman', Times, serif;
+}
+
+@media (max-width: 480px) {
+  .classes .title {
+    font-size: 1.8rem;
   }
-  .classes  .modal-content p{
-    font-size: 1rem;
-    color:black;
-    font-family: 'Times New Roman', Times, serif;
+
+  .classes .category-button {
+    width: 90%;
   }
-  .classes  .modal-content strong{
-    font-size: 1.1rem;
-    color:black;
-    font-family: 'Times New Roman', Times, serif;
-  }
-  .classes .modal-image {
+
+  .classes .yoga-type-card {
     width: 100%;
-    border-radius: 8px;
-    margin-bottom: 10px;
   }
-  
-  .classes .close-button {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 24px;
-    cursor: pointer;
+
+  .classes .modal-content {
+    width: 100%;
   }
-  
-  .classes .close-button:hover {
-    color: #c0392b;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .classes .category-container {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .classes .yoga-types {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .classes .yoga-type-card {
-      width: 90%;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .classes .title {
-      font-size: 1.8rem;
-    }
-  
-    .classes .category-button {
-      width: 90%;
-    }
-  
-    .classes .yoga-type-card {
-      width: 100%;
-    }
-  
-    .classes .modal-content {
-      width: 100%;
-    }
-  }
+}

@@ -3,13 +3,13 @@ import { auth, db } from "../Login/firebase/firebase-config";
 import {
   collection,
   doc,
-  getDocs,
   setDoc,
   deleteDoc,
+  onSnapshot,
 } from "firebase/firestore";
 import "./User.css";
 import NavUser from "./Nav-User";
-import Favorite from "./Favorite"
+import Favorite from "./Favorite";
 import ChatWidget from "./ChatWidget";
 
 function User() {
@@ -29,18 +29,13 @@ function User() {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data); // Log the raw data for debugging
-
-        // Check if the data has numeric or random object keys
         if (data && typeof data === "object") {
-          // Extract only the values from the object (i.e., pose data)
           const posesArray = Object.values(data);
-          setPoses(posesArray); // Update poses state
-          setFilteredPoses(posesArray); // Set filtered poses initially
-          setCurrentPage(1); // Reset page to 1
-          console.log("Fetched poses:", posesArray); // Log poses after setting
+          setPoses(posesArray);
+          setFilteredPoses(posesArray);
+          setCurrentPage(1);
         } else {
-          console.error("Invalid data structure", data); // Log error if the structure doesn't match
+          console.error("Invalid data structure", data);
         }
       })
       .catch((error) => {
@@ -57,29 +52,34 @@ function User() {
         pose.english_name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredPoses(filtered);
-    setCurrentPage(1); // Reset page when search query changes
+    setCurrentPage(1);
   }, [searchQuery, poses]);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
+    const unsubscribeAuth = auth.onAuthStateChanged((currentUser) => {
       setUser(currentUser);
       if (currentUser) {
-        await loadFavorites(currentUser.uid);
+        subscribeToFavorites(currentUser.uid);
       }
     });
-    return () => unsubscribe();
+
+    return () => unsubscribeAuth();
   }, []);
 
-  const loadFavorites = async (userId) => {
-    try {
-      const favoritesRef = collection(db, `users/${userId}/favorites`);
-      const snapshot = await getDocs(favoritesRef);
-      const favoritesSet = new Set();
-      snapshot.forEach((doc) => favoritesSet.add(doc.id));
-      setFavoritePoses(favoritesSet);
-    } catch (error) {
-      console.error("Error loading favorites:", error);
-    }
+  const subscribeToFavorites = (userId) => {
+    const favoritesRef = collection(db, `users/${userId}/favorites`);
+
+    return onSnapshot(
+      favoritesRef,
+      (snapshot) => {
+        const favoritesSet = new Set();
+        snapshot.forEach((doc) => favoritesSet.add(doc.id));
+        setFavoritePoses(favoritesSet);
+      },
+      (error) => {
+        console.error("Error loading favorites:", error);
+      }
+    );
   };
 
   const toggleFavorite = async (pose) => {
@@ -87,21 +87,15 @@ function User() {
       alert("Please log in to save favorites.");
       return;
     }
-  
+
     const poseId = String(pose.id || pose.sanskrit_name_adapted);
     const favoritesRef = doc(db, `users/${user.uid}/favorites`, poseId);
-  
+
     try {
       if (favoritePoses.has(poseId)) {
         await deleteDoc(favoritesRef);
-        setFavoritePoses((prev) => {
-          const newSet = new Set(prev);
-          newSet.delete(poseId);
-          return newSet;
-        });
       } else {
         await setDoc(favoritesRef, pose);
-        setFavoritePoses((prev) => new Set([...prev, poseId]));
       }
     } catch (error) {
       console.error("Error updating favorite:", error);
@@ -123,7 +117,6 @@ function User() {
   return (
     <div className="user-page">
       <NavUser />
-      
       <ChatWidget />
       <section className="hero">
         <h1>Transform Your Yoga Journey Together</h1>
@@ -133,7 +126,7 @@ function User() {
           and discover new asanas.
         </p>
       </section>
-      <Favorite/>
+      <Favorite />
       <div className="search-bar">
         <input
           type="text"
@@ -142,7 +135,7 @@ function User() {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
-      
+
       <div className="poses-container">
         {currentPoses.length > 0 ? (
           currentPoses.map((pose, index) => {
@@ -179,11 +172,10 @@ function User() {
             );
           })
         ) : (
-          <p>No poses available</p> // Fallback message if no poses are found
+          <p>No poses available</p>
         )}
       </div>
 
-      {/* Pagination Controls */}
       {totalPages > 1 && (
         <div className="pagination">
           <button
@@ -193,8 +185,7 @@ function User() {
             Previous
           </button>
           <span>
-            {" "}
-            Page {currentPage} of {totalPages}{" "}
+            Page {currentPage} of {totalPages}
           </span>
           <button
             onClick={() =>
@@ -207,7 +198,6 @@ function User() {
         </div>
       )}
 
-      {/* Modal for displaying pose details */}
       {selectedPose && (
         <div className="modal-overlay" onClick={() => setSelectedPose(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>

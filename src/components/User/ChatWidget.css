@@ -1,5 +1,6 @@
 @keyframes jump {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -7,7 +8,7 @@
   }
 }
 
-.chat-button {
+.chatty .chat-button {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -22,7 +23,7 @@
   animation: jump 0.6s infinite ease-in-out; /* Continuous jumping effect */
 }
 
-.chat-button:hover {
+.chatty .chat-button:hover {
   animation: none; /* Stops jumping when hovered */
 }
 .chatty .green-dot {
@@ -35,7 +36,6 @@
   right: 5px;
   z-index: 10;
 }
-
 
 .chatty .chat-popup {
   position: fixed;

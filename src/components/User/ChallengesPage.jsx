@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Challenges from "./Challenges";
 import NavUser from "./Nav-User";
-import "./ChallengesPage.css"
+import "./ChallengesPage.css";
 
 function ChallengesPage() {
   const [activeTab, setActiveTab] = useState("active");

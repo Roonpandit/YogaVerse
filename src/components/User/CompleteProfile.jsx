@@ -42,7 +42,7 @@ const CompleteProfile = () => {
       alert("All fields are required.");
       return;
     }
-    
+
     const user = auth.currentUser;
     if (!user) return;
 
@@ -100,10 +100,18 @@ const CompleteProfile = () => {
       <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} />
 
       <label>Height (cm)</label>
-      <input type="number" value={height} onChange={(e) => setHeight(e.target.value)} />
+      <input
+        type="number"
+        value={height}
+        onChange={(e) => setHeight(e.target.value)}
+      />
 
       <label>Weight (kg)</label>
-      <input type="number" value={weight} onChange={(e) => setWeight(e.target.value)} />
+      <input
+        type="number"
+        value={weight}
+        onChange={(e) => setWeight(e.target.value)}
+      />
 
       <label>Gender</label>
       <select value={gender} onChange={(e) => setGender(e.target.value)}>

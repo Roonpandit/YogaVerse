@@ -24,18 +24,18 @@ function Classes() {
 
   useEffect(() => {
     setCategories(Object.keys(categoryEndpoints));
-    
+
     // Set "Difficulty Levels" as the default selected category
     const defaultCategory = "Difficulty Levels";
     setSelectedCategory(defaultCategory);
-  
+
     // Fetch the yoga types for the default category
     const fetchDefaultCategory = async () => {
       const response = await fetch(categoryEndpoints[defaultCategory]);
       const data = await response.json();
       setYogaTypes(data || []);
     };
-  
+
     fetchDefaultCategory();
   }, []);
 
@@ -66,7 +66,7 @@ function Classes() {
   return (
     <div className="classes">
       <NavUser />
-      <ChatWidget/>
+      <ChatWidget />
       <h1 className="title">Yoga Classes</h1>
 
       <div className="category-container">

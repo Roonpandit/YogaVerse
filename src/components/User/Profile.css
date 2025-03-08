@@ -21,7 +21,7 @@
   border-radius: 50%;
   overflow: visible;
   position: absolute;
-  top: 150px;
+  top: 120px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -61,7 +61,7 @@
   text-align: center; /* Ensures text is centered inside */
   width: 100%; /* Ensures full width for proper centering */
   position: absolute;
-  top: 299px;
+  top: 275px;
   left: 50%;
   transform: translateX(-50%); /* Centers div itself */
 }
@@ -93,7 +93,6 @@
   width: 60%;
   border-radius: 4px;
 }
-
 
 .profile-container .profile-row {
   display: flex;

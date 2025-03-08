@@ -62,7 +62,9 @@ const ChatWidget = () => {
   const markMessagesAsRead = async () => {
     if (!userId) return;
 
-    const unreadMessages = messages.filter((msg) => msg.isAdminReply && !msg.isRead);
+    const unreadMessages = messages.filter(
+      (msg) => msg.isAdminReply && !msg.isRead
+    );
     if (unreadMessages.length === 0) return;
 
     const batchUpdates = unreadMessages.map((msg) =>
@@ -91,12 +93,18 @@ const ChatWidget = () => {
         <div className="chat-popup">
           <div className="chat-header">
             <h3>Need Help?</h3>
-            <AiOutlineClose className="close-icon" onClick={() => setIsOpen(false)} />
+            <AiOutlineClose
+              className="close-icon"
+              onClick={() => setIsOpen(false)}
+            />
           </div>
 
           <div className="chat-messages" ref={messagesEndRef}>
             {messages.map((msg) => (
-              <div key={msg.id} className={`message ${msg.isAdminReply ? "admin" : "user"}`}>
+              <div
+                key={msg.id}
+                className={`message ${msg.isAdminReply ? "admin" : "user"}`}
+              >
                 <strong>{msg.isAdminReply ? "Admin" : msg.senderName}</strong>
                 <p>{msg.text}</p>
               </div>
