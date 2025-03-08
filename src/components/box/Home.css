@@ -359,19 +359,21 @@
   .home-container .hero-content h1 {
     font-size: 1.8rem;
   }
-
+  .home-container .section-title {
+    font-size: 1.8rem;
+  }
   .home-container .hero-content p {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 
   .home-container .book-slider-container {
-    height: 320px;
-    width: 350px;
+    height: 300px;
+    width: 330px;
   }
 
   .home-container .book-slide {
     width: 220px;
-    height: 280px;
+    height: 240px;
   }
 
   .home-container .yoga-image {
@@ -379,7 +381,7 @@
   }
 
   .home-container .yoga-name {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   .home-container .yoga-description {
@@ -388,7 +390,7 @@
 
   .home-container .reviews .book-slider-container {
     height: 320px;
-    width: 350px;
+    width: 330px;
   }
 
   .home-container .reviews .book-slide {
