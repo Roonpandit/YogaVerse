@@ -378,9 +378,11 @@
 
   .home-container .yoga-image {
     height: 130px;
+    margin-bottom: 0px;
   }
 
   .home-container .yoga-name {
+    margin-top: 0px;
     font-size: 1rem;
   }
 
