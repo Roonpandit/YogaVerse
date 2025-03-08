@@ -12,6 +12,7 @@ function NavAdmin() {
   const [userData, setUserData] = useState({
     photoURL: userLogo, // Default profile picture
   });
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     let unsubscribeUser;
@@ -44,6 +45,10 @@ function NavAdmin() {
     };
   }, []);
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   return (
     <nav className="nav-admin">
       <div className="navbars-container">
@@ -53,31 +58,51 @@ function NavAdmin() {
             <span>YogaVerse</span>
           </Link>
         </div>
-        <ul className="nav-links">
+        
+        {/* Desktop nav links */}
+        <ul className="nav-links desktop-only">
           <li>
-            <Link to="/admin">Home</Link>
+            <Link to="/admin">Users</Link>
           </li>
           <li>
             <Link to="/chat">Chat</Link>
           </li>
         </ul>
 
-        <div className="profile-logo">
-          <Link to="/admin">
+        <div className="profile-section">
+          <div className="profile-logo" onClick={toggleSidebar}>
             <img
               src={userData.photoURL}
               alt="Profile"
               className="profile-images"
             />
-            <span className="username">{userName}</span>
-          </Link>
-          <div className="nav-buttons">
+            <span className="username desktop-only">{userName}</span>
+          </div>
+          <div className="nav-buttons desktop-only">
             <Link to="/" className="nav-button-signup">
               Log Out
             </Link>
           </div>
         </div>
       </div>
+      
+      {/* Mobile sidebar */}
+      <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
+        <div className="sidebar-content">
+          <Link to="/admin" className="sidebar-link" onClick={toggleSidebar}>
+            Users
+          </Link>
+          <Link to="/chat" className="sidebar-link" onClick={toggleSidebar}>
+            Chat
+          </Link>
+          <Link to="/" className="sidebar-link logout" onClick={toggleSidebar}>
+            Log Out
+          </Link>
+        </div>
+      </div>
+      
+      {/* Overlay */}
+      {sidebarOpen && <div className="overlay" onClick={toggleSidebar}></div>}
     </nav>
   );
 }
