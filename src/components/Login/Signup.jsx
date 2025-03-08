@@ -14,7 +14,6 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [role, setRole] = useState("user"); // Default role is "user"
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -40,7 +39,7 @@ const Signup = () => {
       await setDoc(doc(db, "users", user.uid), {
         name,
         email,
-        role, // Store role in Firestore
+        role: "user", // Hardcoded role
         dob: "",
         gender: "",
         height: "",
@@ -75,11 +74,6 @@ const Signup = () => {
         placeholder="Email"
         onChange={(e) => setEmail(e.target.value)}
       />
-
-      <select onChange={(e) => setRole(e.target.value)}>
-        <option value="user">User</option>
-        {/* <option value="admin">Admin</option> */}
-      </select>
 
       <div className="password-container">
         <input
