@@ -65,8 +65,8 @@
   flex-direction: column;
   gap: 10px;
   padding: 10px;
-  flex: 1; /* Takes up all available space */
-  overflow-y: auto; /* Enables scrolling */
+  flex: 1; 
+  overflow-y: auto; 
   padding: 10px;
   max-height: 200px;
 }
@@ -189,4 +189,90 @@
   border-radius: 5px;
   padding: 4px;
   margin-top: 5px;
+}
+
+/* Mobile View Media Queries */
+@media screen and (max-width: 768px) {
+  .admin-chat .chat-container {
+    flex-direction: column;
+    width: 95%;
+    gap: 10px;
+  }
+  
+  .admin-chat .user-list {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .admin-chat .chat-box {
+    width: 100%;
+  }
+  
+  .admin-chat .messages {
+    max-height: 300px;
+  }
+  
+  .admin-chat .message {
+    max-width: 85%;
+    font-size: 13px;
+  }
+  
+  .admin-chat .message input {
+    width: 70%;
+  }
+  
+  .admin-chat .chat-input {
+    flex-wrap: wrap;
+  }
+  
+  .admin-chat .chat-input input {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+  
+  .admin-chat .chat-input button {
+    padding: 6px;
+    font-size: 14px;
+  }
+  
+  .admin-chat .chat-controls {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .admin-chat .delete-all-chat,
+  .admin-chat .close-btn {
+    width: 100%;
+    text-align: center;
+    padding: 8px;
+    margin-top: 8px;
+  }
+  
+  .admin-chat h2 {
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+}
+
+/* Small mobile devices */
+@media screen and (max-width: 480px) {
+  .admin-chat .message {
+    max-width: 95%;
+  }
+  
+  .admin-chat .admin-actions {
+    flex-direction: column;
+    gap: 3px;
+  }
+  
+  .admin-chat .message button {
+    font-size: 10px;
+    padding: 2px;
+    margin-top: 3px;
+  }
 }
