@@ -360,9 +360,11 @@
 
   .fav .yoga-image {
     height: 130px;
+    margin-bottom: 10px;
   }
 
   .fav .yoga-name {
     font-size: 1rem;
+    margin-top: 0px;
   }
 }

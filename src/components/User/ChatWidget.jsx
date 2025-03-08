@@ -105,7 +105,7 @@ const ChatWidget = () => {
                 key={msg.id}
                 className={`message ${msg.isAdminReply ? "admin" : "user"}`}
               >
-                <strong>{msg.isAdminReply ? "Admin" : msg.senderName}</strong>
+                <strong>{msg.isAdminReply ? "Admin" : user.displayName}</strong>
                 <p>{msg.text}</p>
               </div>
             ))}
