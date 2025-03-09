@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { auth, db } from "../Login/firebase/firebase-config";
+import { auth, db } from "../firebase/firebase-config";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -234,7 +234,11 @@ const Profile = () => {
                 type="number"
                 name="height"
                 value={userData.height}
-                onChange={handleInputChange}
+                onChange={(e) => {
+                  const value = Math.min(e.target.value, 200); // Set max limit to 200 cm
+                  handleInputChange({ target: { name: "height", value } });
+                }}
+                max={200} // Optional for additional validation
               />
             ) : (
               <span>{userData.height || "Not provided"} cm</span>
@@ -248,7 +252,11 @@ const Profile = () => {
                 type="number"
                 name="weight"
                 value={userData.weight}
-                onChange={handleInputChange}
+                onChange={(e) => {
+                  const value = Math.min(e.target.value, 150); // Set max limit to 150 kg
+                  handleInputChange({ target: { name: "weight", value } });
+                }}
+                max={150} // Optional for additional validation
               />
             ) : (
               <span>{userData.weight || "Not provided"} kg</span>

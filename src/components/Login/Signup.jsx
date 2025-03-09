@@ -4,7 +4,7 @@ import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
 } from "firebase/auth";
-import { auth, db } from "./firebase/firebase-config";
+import { auth, db } from "../firebase/firebase-config";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import { Eye, EyeOff } from "lucide-react";

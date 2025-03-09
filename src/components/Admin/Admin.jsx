@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { db, auth } from "../Login/firebase/firebase-config"; // Ensure Firestore is correctly configured
+import { db, auth } from "../firebase/firebase-config"; // Ensure Firestore is correctly configured
 import {
   collection,
   getDocs,

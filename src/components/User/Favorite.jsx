@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { auth, db } from "../Login/firebase/firebase-config";
+import { auth, db } from "../firebase/firebase-config";
 import { doc, collection, deleteDoc, onSnapshot } from "firebase/firestore";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { onAuthStateChanged } from "firebase/auth";

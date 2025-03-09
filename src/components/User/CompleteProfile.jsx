@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { auth, db } from "../Login/firebase/firebase-config.js";
+import { auth, db } from "../firebase/firebase-config.js";
 import { useNavigate } from "react-router-dom";
 import "./CompleteProfile.css";
 
@@ -103,14 +103,21 @@ const CompleteProfile = () => {
       <input
         type="number"
         value={height}
-        onChange={(e) => setHeight(e.target.value)}
+        onChange={(e) => {
+          const value = Math.min(e.target.value, 200); // Set max limit to 200
+          setHeight(value);
+        }}
+        max={200} // Optional, for additional HTML validation
       />
-
       <label>Weight (kg)</label>
       <input
         type="number"
         value={weight}
-        onChange={(e) => setWeight(e.target.value)}
+        onChange={(e) => {
+          const value = Math.min(e.target.value, 150); // Set max limit to 150 kg
+          setWeight(value);
+        }}
+        max={250} // Optional for additional validation
       />
 
       <label>Gender</label>

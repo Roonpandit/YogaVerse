@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { db, auth } from "../Login/firebase/firebase-config";
+import { db, auth } from "../firebase/firebase-config";
 import {
   collection,
   addDoc,
@@ -9,6 +9,7 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
+import { encryptMessage, decryptMessage } from "../Utils/encryption";
 import { IoChatbubblesOutline } from "react-icons/io5";
 import { AiOutlineClose } from "react-icons/ai";
 import "./ChatWidget.css";
@@ -18,7 +19,7 @@ const ChatWidget = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [hasUnread, setHasUnread] = useState(false);
-  const messagesEndRef = useRef(null); // ✅ Ref for scrolling
+  const messagesEndRef = useRef(null);
 
   const user = auth.currentUser;
   const userId = user ? user.uid : null;
@@ -30,16 +31,25 @@ const ChatWidget = () => {
     const q = query(messagesRef, orderBy("timestamp"));
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const msgs = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      setMessages(msgs);
-      setHasUnread(msgs.some((msg) => msg.isAdminReply && !msg.isRead));
+      const msgs = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      // Decrypt messages before setting state
+      const decryptedMsgs = msgs.map((msg) => ({
+        ...msg,
+        text: decryptMessage(msg.text),
+      }));
+
+      setMessages(decryptedMsgs);
+      setHasUnread(decryptedMsgs.some((msg) => msg.isAdminReply && !msg.isRead));
     });
 
     return () => unsubscribe();
   }, [userId]);
 
   useEffect(() => {
-    // ✅ Scroll to the latest message
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
     }
@@ -48,9 +58,11 @@ const ChatWidget = () => {
   const sendMessage = async () => {
     if (!newMessage.trim() || !userId) return;
 
+    const encryptedText = encryptMessage(newMessage);
+
     await addDoc(collection(db, "users", userId, "messages"), {
       senderName: isAdmin ? "Admin" : user.displayName || "User",
-      text: newMessage,
+      text: encryptedText,
       isAdminReply: isAdmin,
       timestamp: new Date(),
       isRead: isAdmin ? false : true,
@@ -62,9 +74,7 @@ const ChatWidget = () => {
   const markMessagesAsRead = async () => {
     if (!userId) return;
 
-    const unreadMessages = messages.filter(
-      (msg) => msg.isAdminReply && !msg.isRead
-    );
+    const unreadMessages = messages.filter((msg) => msg.isAdminReply && !msg.isRead);
     if (unreadMessages.length === 0) return;
 
     const batchUpdates = unreadMessages.map((msg) =>
@@ -93,18 +103,12 @@ const ChatWidget = () => {
         <div className="chat-popup">
           <div className="chat-header">
             <h3>Need Help?</h3>
-            <AiOutlineClose
-              className="close-icon"
-              onClick={() => setIsOpen(false)}
-            />
+            <AiOutlineClose className="close-icon" onClick={() => setIsOpen(false)} />
           </div>
 
           <div className="chat-messages" ref={messagesEndRef}>
             {messages.map((msg) => (
-              <div
-                key={msg.id}
-                className={`message ${msg.isAdminReply ? "admin" : "user"}`}
-              >
+              <div key={msg.id} className={`message ${msg.isAdminReply ? "admin" : "user"}`}>
                 <strong>{msg.isAdminReply ? "Admin" : user.displayName}</strong>
                 <p>{msg.text}</p>
               </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { db, auth } from "../Login/firebase/firebase-config";
+import { db, auth } from "../firebase/firebase-config";
 import {
   collection,
   query,
@@ -13,6 +13,7 @@ import {
   deleteDoc,
   writeBatch,
 } from "firebase/firestore";
+import { encryptMessage, decryptMessage } from "../Utils/encryption";
 import { FaPencilAlt } from "react-icons/fa";
 import "./AdminChat.css";
 import NavAdmin from "./Nav-Admin";
@@ -117,8 +118,9 @@ const AdminChat = () => {
       const msgs = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
+        text: decryptMessage(doc.data().text), // Decrypt message before displaying
       }));
-
+    
       setMessages(msgs);
 
       // Mark messages as read in a batch
@@ -151,22 +153,24 @@ const AdminChat = () => {
 
   const sendReply = async () => {
     if (!newMessage.trim() || !selectedUser) return;
-
+  
     try {
+      const encryptedText = encryptMessage(newMessage); // Encrypt the message
+  
       await addDoc(collection(db, "users", selectedUser.id, "messages"), {
         senderName: "Admin",
         adminId: auth.currentUser.uid,
-        text: newMessage,
+        text: encryptedText, // Store encrypted text
         isAdminReply: true,
         edited: false,
         timestamp: serverTimestamp(),
       });
-
+  
       setNewMessage("");
     } catch (error) {
       console.error("Error sending message:", error);
     }
-  };
+  };;
 
   const editMessage = (message) => {
     setEditingMessage(message);
@@ -175,16 +179,15 @@ const AdminChat = () => {
 
   const saveEditedMessage = async (messageId) => {
     if (!editedText.trim()) return;
-
+  
     try {
-      await updateDoc(
-        doc(db, "users", selectedUser.id, "messages", messageId),
-        {
-          text: editedText,
-          edited: true,
-        }
-      );
-
+      const encryptedText = encryptMessage(editedText); // Encrypt edited message
+  
+      await updateDoc(doc(db, "users", selectedUser.id, "messages", messageId), {
+        text: encryptedText,
+        edited: true,
+      });
+  
       setEditingMessage(null);
       setEditedText("");
     } catch (error) {

@@ -4,7 +4,7 @@ import {
   signInWithPopup,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import { auth, googleProvider, db } from "./firebase/firebase-config";
+import { auth, googleProvider, db } from "../firebase/firebase-config";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";

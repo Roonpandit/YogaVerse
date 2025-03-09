@@ -69,7 +69,6 @@
   padding: 10px;
   max-height: 200px;
 }
-
 .chatty .message {
   max-width: 80%;
   padding: 10px;
@@ -78,8 +77,9 @@
 }
 
 .chatty .message.user {
-  background-color: #007bff;
-  color: white;
+  background-color: #f1f1f1;
+  color: black;
+  text-align: left;
   align-self: flex-end; /* User messages on the right */
   border-top-right-radius: 0;
 }
