@@ -27,7 +27,6 @@ const Profile = () => {
 
         if (docSnap.exists()) {
           setUserData(docSnap.data());
-          fetchFavorites(user.uid);
         } else {
           const newUserData = {
             name: user.displayName || "",

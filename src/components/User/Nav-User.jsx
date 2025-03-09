@@ -1,22 +1,19 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../Login/firebase/firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, onSnapshot } from "firebase/firestore";
 import "./Nav-User.css";
 import userLogo from "../../assets/user-logo.jpg";
-import logo from "../../assets/Logo-Yogaverse.png"; // Default logo
+import logo from "../../assets/Logo-Yogaverse.png";
 
-function NavUser() {
+function NavAdmin() {
   const [userName, setUserName] = useState("Guest");
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({
     photoURL: userLogo, // Default profile picture
   });
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
 
   useEffect(() => {
     let unsubscribeUser;
@@ -49,6 +46,10 @@ function NavUser() {
     };
   }, []);
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   return (
     <nav className="nav-user">
       <div className="navbars-container">
@@ -59,59 +60,54 @@ function NavUser() {
           </Link>
         </div>
 
-        {/* Desktop Navigation */}
+        {/* Desktop nav links */}
         <ul className="nav-links desktop-only">
-          <div>
+          <li>
             <Link to="/users">Home</Link>
-          </div>
-          <div>
+          </li>
+          <li>
             <Link to="/classes">Classes</Link>
-          </div>
+          </li>
         </ul>
 
-        {/* Desktop Profile */}
-        <div className="profile-logo desktop-only">
-          <Link to="/Profile">
+        <div className="profile-section">
+          <div className="profile-logo" onClick={toggleSidebar}>
             <img
               src={userData.photoURL}
               alt="Profile"
-              className="profile-image"
+              className="profile-images"
             />
-            <span className="username">{userName}</span>
-          </Link>
-          <div className="nav-buttons">
+            <span
+              onClick={() => navigate("/Profile")}
+              className="username desktop-only"
+            >
+              {userName}
+            </span>
+          </div>
+          <div className="nav-buttons desktop-only">
             <Link to="/" className="nav-button-signup">
               Log Out
             </Link>
           </div>
         </div>
-
-        {/* Mobile Profile Icon (triggers sidebar) */}
-        <div className="mobile-profile" onClick={toggleSidebar}>
-          <img
-            src={userData.photoURL}
-            alt="Profile"
-            className="profile-image"
-          />
-        </div>
       </div>
 
-      {/* Mobile Sidebar */}
-      <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
-        <div className="sidebar-header">
-          <span className="sidebar-username">{userName}</span>
-        </div>
+      {/* Mobile sidebar */}
+      <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
         <div className="sidebar-content">
+          <strong className="sidebar-link" onClick={toggleSidebar}>
+            {userName}
+          </strong>
           <Link to="/users" className="sidebar-link" onClick={toggleSidebar}>
-            Home
+            Users
           </Link>
           <Link to="/classes" className="sidebar-link" onClick={toggleSidebar}>
             Classes
           </Link>
-          <Link to="/Profile" className="sidebar-link" onClick={toggleSidebar}>
-          My profile
+          <Link to="/profile" className="sidebar-link" onClick={toggleSidebar}>
+            My Profile
           </Link>
-          <Link to="/" className="sidebar-logout" onClick={toggleSidebar}>
+          <Link to="/" className="sidebar-link logout" onClick={toggleSidebar}>
             Log Out
           </Link>
         </div>
@@ -123,4 +119,4 @@ function NavUser() {
   );
 }
 
-export default NavUser;
+export default NavAdmin;
